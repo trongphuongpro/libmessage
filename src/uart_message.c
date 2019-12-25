@@ -2,17 +2,27 @@
 #include "message.h"
 
 
-static void parsePreamble();
-static void parseAddress();
-static void parseLoadSize();
-static void parsePayload();
+static void parsePreamble(void);
+static void parseAddress(void);
+static void parseLoadSize(void);
+static void parsePayload(void);
 
-static void (*callback[4])() = {parsePreamble, parseAddress, parseLoadSize, parsePayload};
+typedef void (*callbacktype)(void);
+
+static callbacktype callback[4] = {parsePreamble, parseAddress, parseLoadSize, parsePayload};
 static volatile uint8_t *data;
+
 uint8_t step = 0;
 
-void message_init(volatile uint8_t *reg) {
+const uint8_t required_preamble[4] = {0xAA, 0xBB, 0xCC, 0xDD};
+
+static MessagePacket packet;
+
+
+MessagePacket* message_init(volatile uint8_t *reg) {
 	data = reg;
+
+	return &packet;
 }
 
 
@@ -20,9 +30,9 @@ static void parsePreamble() {
 	if (step == 0) {
 		static int counter;
 
-		preamble[counter] = *data;
+		packet.preamble[counter] = *data;
 
-		if (preamble[counter] == required_preamble[counter]) {
+		if (packet.preamble[counter] == required_preamble[counter]) {
 			counter++;
 		}
 		else {
@@ -42,7 +52,7 @@ static void parseAddress() {
 	if (step == 1) {
 		static int counter;
 
-		address[counter++] = *data;
+		packet.address[counter++] = *data;
 
 		// go to next step if 2-byte address is read.
 		if (counter == 2) {
@@ -55,7 +65,7 @@ static void parseAddress() {
 
 static void parseLoadSize() {
 	if (step == 2) {
-		payloadSize = *data;
+		packet.payloadSize = *data;
 		step = 3;
 	}
 }
@@ -65,9 +75,9 @@ static void parsePayload() {
 	if (step == 3) {
 		static int counter;
 
-		payload[counter++] = *data;
+		packet.payload[counter++] = *data;
 
-		if (counter == payloadSize) {
+		if (counter == packet.payloadSize) {
 			counter = 0;
 			step = 4;
 		}
@@ -75,7 +85,6 @@ static void parsePayload() {
 }
 
 
-#ifdef __MESSAGE__
 
 ISR(USART_RX_vect) {
 
@@ -83,5 +92,3 @@ ISR(USART_RX_vect) {
 		callback[step]();
 	}
 }
-
-#endif

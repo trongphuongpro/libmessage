@@ -7,17 +7,18 @@ extern "C" {
 
 #include "crc32.h"
 
-extern volatile uint8_t preamble[4];
-extern volatile uint8_t address[2];
-extern volatile uint8_t payloadSize;
-extern volatile uint8_t payload[50];
-extern volatile crc32_t checksum;
+typedef struct {
+	volatile uint8_t preamble[4];
+	volatile uint8_t address[2];
+	volatile uint8_t payloadSize;
+	volatile uint8_t payload[50];
+	volatile crc32_t checksum;
+} MessagePacket;
+
+
 extern uint8_t step;
 
-const uint8_t required_preamble[4] = {0xAA, 0xBB, 0xCC, 0xDD};
-
-
-void message_init(volatile uint8_t*);
+MessagePacket *message_init(volatile uint8_t*);
 
 #ifdef __cplusplus
 }
