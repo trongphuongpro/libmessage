@@ -16,7 +16,7 @@ typedef struct {
 } MessagePacket;
 
 
-extern uint8_t step;
+extern volatile uint8_t step;
 
 MessagePacket *message_init(volatile uint8_t*);
 

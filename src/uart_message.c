@@ -1,5 +1,7 @@
+#include <stdio.h>
 #include <avr/interrupt.h>
 #include "message.h"
+#include "uart.h"
 
 
 static void parsePreamble(void);
@@ -8,14 +10,11 @@ static void parseLoadSize(void);
 static void parsePayload(void);
 
 typedef void (*callbacktype)(void);
-
 static callbacktype callback[4] = {parsePreamble, parseAddress, parseLoadSize, parsePayload};
+
 static volatile uint8_t *data;
-
-uint8_t step = 0;
-
+volatile uint8_t step = 0;
 const uint8_t required_preamble[4] = {0xAA, 0xBB, 0xCC, 0xDD};
-
 static MessagePacket packet;
 
 
@@ -87,7 +86,6 @@ static void parsePayload() {
 
 
 ISR(USART_RX_vect) {
-
 	if (step < 4) {
 		callback[step]();
 	}
