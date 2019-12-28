@@ -1,3 +1,15 @@
+/** 
+ * @file uart_message_atmega.h
+ * @brief Implementations for message protocol
+ *  
+ * This library is used to create Data Link Layer for existed Physical Layers,
+ * such as UART, SPI, I2C,...
+ *
+ * @author Nguyen Trong Phuong (aka trongphuongpro)
+ * @date 2019 Dec 28
+ */
+
+
 #include <stdio.h>
 #include <string.h>
 #include <avr/interrupt.h>
