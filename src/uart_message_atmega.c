@@ -1,5 +1,5 @@
 /** 
- * @file uart_message_atmega.h
+ * @file uart_message_atmega.c
  * @brief Implementations for message protocol
  *  
  * This library is used to create Data Link Layer for existed Physical Layers,
