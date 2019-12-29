@@ -81,7 +81,7 @@ $(function() {
 <code>#include &lt;avr/interrupt.h&gt;</code><br />
 <code>#include &lt;util/delay.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="uart__message_8h_source.html">uart_message.h</a>&quot;</code><br />
-<code>#include &quot;uart.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="uart_8h_source.html">uart.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -97,8 +97,8 @@ Functions</h2></td></tr>
 <tr class="memitem:a9e3a8bfbb96630142b5372e7517a202f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="uart__message__atmega_8c.html#a9e3a8bfbb96630142b5372e7517a202f">uart_message_send</a> (const void *_preamble, uint8_t des, uint8_t src, const void *_data, uint8_t len)</td></tr>
 <tr class="memdesc:a9e3a8bfbb96630142b5372e7517a202f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send message packet.  <a href="uart__message__atmega_8c.html#a9e3a8bfbb96630142b5372e7517a202f">More...</a><br /></td></tr>
 <tr class="separator:a9e3a8bfbb96630142b5372e7517a202f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a434847f870bfcd531f956586dc58be71"><td class="memItemLeft" align="right" valign="top"><a id="a434847f870bfcd531f956586dc58be71"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>uart_message_verifyChecksum</b> ()</td></tr>
+<tr class="memitem:a434847f870bfcd531f956586dc58be71"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="uart__message__atmega_8c.html#a434847f870bfcd531f956586dc58be71">uart_message_verifyChecksum</a> ()</td></tr>
+<tr class="memdesc:a434847f870bfcd531f956586dc58be71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the integrity of the data.  <a href="uart__message__atmega_8c.html#a434847f870bfcd531f956586dc58be71">More...</a><br /></td></tr>
 <tr class="separator:a434847f870bfcd531f956586dc58be71"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a09ce999e15ad60b8a3f07d08af1946f9"><td class="memItemLeft" align="right" valign="top"><a id="a09ce999e15ad60b8a3f07d08af1946f9"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>ISR</b> (USART_RX_vect)</td></tr>
@@ -204,6 +204,29 @@ const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>required_pre
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>nothing. </dd></dl>
+
+</div>
+</div>
+<a id="a434847f870bfcd531f956586dc58be71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a434847f870bfcd531f956586dc58be71">&#9670;&nbsp;</a></span>uart_message_verifyChecksum()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int uart_message_verifyChecksum </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Check the integrity of the data. </p>
+<dl class="section return"><dt>Returns</dt><dd>0: OK </dd>
+<dd>
+-1: Error </dd></dl>
 
 </div>
 </div>

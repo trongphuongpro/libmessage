@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['uart_5fmessage_5fcreate_24',['uart_message_create',['../uart__message_8h.html#ab92a7ce4f1472f486b0be5e7dc107457',1,'uart_message_create(uint32_t baudrate):&#160;uart_message_atmega.c'],['../uart__message__atmega_8c.html#ab92a7ce4f1472f486b0be5e7dc107457',1,'uart_message_create(uint32_t baudrate):&#160;uart_message_atmega.c']]],
-  ['uart_5fmessage_5fsend_25',['uart_message_send',['../uart__message_8h.html#ad3538c16f837d6094eda2bfa319005c7',1,'uart_message_send(const void *preamble, uint8_t destination, uint8_t source, const void *payload, uint8_t len):&#160;uart_message_atmega.c'],['../uart__message__atmega_8c.html#a9e3a8bfbb96630142b5372e7517a202f',1,'uart_message_send(const void *_preamble, uint8_t des, uint8_t src, const void *_data, uint8_t len):&#160;uart_message_atmega.c']]]
+  ['crc32_5fcheck_43',['crc32_check',['../crc32_8h.html#a163e663f1fd09938b3f16021d8917372',1,'crc32.h']]],
+  ['crc32_5fcompute_44',['crc32_compute',['../crc32_8h.html#a5d0dacbd251b370b6c2c5afd8207ec51',1,'crc32.h']]],
+  ['crc32_5finit_45',['crc32_init',['../crc32_8h.html#a41e6c9af25a9b41f83886c7121615aba',1,'crc32.h']]],
+  ['crc32_5fselfcheck_46',['crc32_selfcheck',['../crc32_8h.html#ae00328ba2f0dce927c49991fbbcc453f',1,'crc32.h']]]
 ];

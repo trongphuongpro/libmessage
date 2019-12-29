@@ -93,6 +93,12 @@ void uart_message_send(const void* preamble,
 						uint8_t len);
 
 
+/** 
+ * @brief Check the integrity of the data
+ *
+ * @return 0: OK
+ * @return -1: Error
+ */
 int uart_message_verifyChecksum(void);
 
 #ifdef __cplusplus

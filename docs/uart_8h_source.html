@@ -69,35 +69,53 @@ $(function() {
 <div class="title">uart.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef __UART__</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define __UART__</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keywordtype">void</span> uart_open(uint32_t);</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keywordtype">void</span> uart_write(uint8_t);</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keywordtype">void</span> uart_writeBuffer(<span class="keyword">const</span> <span class="keywordtype">void</span>*, uint32_t);</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keywordtype">void</span> uart_putchar(<span class="keywordtype">char</span> c);</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keywordtype">void</span> uart_print(<span class="keyword">const</span> <span class="keywordtype">char</span>*);</div>
+<a href="uart_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#ifndef __UART__</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#define __UART__</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;uint8_t uart_read(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;uint8_t* uart_readBuffer(uint32_t);</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keywordtype">char</span> uart_getchar();</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;uint8_t uart_flush(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keywordtype">void</span> <a class="code" href="uart_8h.html#a865ab7e5b7532c470fdee0bfbed4b019">uart_open</a>(uint32_t baudrate);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* __UART__ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keywordtype">void</span> <a class="code" href="uart_8h.html#a4c5019b7af6727cf2adf96f601d2557f">uart_write</a>(uint8_t data);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keywordtype">void</span> <a class="code" href="uart_8h.html#a19d7bc5c5d4668b4b34c51a88e6dc657">uart_writeBuffer</a>(<span class="keyword">const</span> <span class="keywordtype">void</span>* data, uint32_t len);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keywordtype">void</span> <a class="code" href="uart_8h.html#a71998820c8d42bea49a7ba7b235d5316">uart_putchar</a>(<span class="keywordtype">char</span> data);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="keywordtype">void</span> <a class="code" href="uart_8h.html#a3f1241d830139b26251498fe4e209088">uart_print</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* <span class="keywordtype">string</span>);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;uint8_t <a class="code" href="uart_8h.html#ab497d11289820e1b33be1f6b8abb27d0">uart_read</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="keywordtype">char</span> <a class="code" href="uart_8h.html#a00dbbc6e035bfd12196ec47a99f8e1fe">uart_getchar</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;uint8_t <a class="code" href="uart_8h.html#a0d7f9a8bf4848b0f65496c757155d780">uart_flush</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;}</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* __UART__ */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="auart_8h_html_a865ab7e5b7532c470fdee0bfbed4b019"><div class="ttname"><a href="uart_8h.html#a865ab7e5b7532c470fdee0bfbed4b019">uart_open</a></div><div class="ttdeci">void uart_open(uint32_t baudrate)</div><div class="ttdoc">Initialize UART bus with baudrate.</div><div class="ttdef"><b>Definition:</b> uart_atmega.c:15</div></div>
+<div class="ttc" id="auart_8h_html_a3f1241d830139b26251498fe4e209088"><div class="ttname"><a href="uart_8h.html#a3f1241d830139b26251498fe4e209088">uart_print</a></div><div class="ttdeci">void uart_print(const char *string)</div><div class="ttdoc">print a string to UART terminal</div><div class="ttdef"><b>Definition:</b> uart_atmega.c:59</div></div>
+<div class="ttc" id="auart_8h_html_a00dbbc6e035bfd12196ec47a99f8e1fe"><div class="ttname"><a href="uart_8h.html#a00dbbc6e035bfd12196ec47a99f8e1fe">uart_getchar</a></div><div class="ttdeci">char uart_getchar(void)</div><div class="ttdoc">get one byte from UART bus</div><div class="ttdef"><b>Definition:</b> uart_atmega.c:74</div></div>
+<div class="ttc" id="auart_8h_html_a71998820c8d42bea49a7ba7b235d5316"><div class="ttname"><a href="uart_8h.html#a71998820c8d42bea49a7ba7b235d5316">uart_putchar</a></div><div class="ttdeci">void uart_putchar(char data)</div><div class="ttdoc">print one character to UART terminal</div><div class="ttdef"><b>Definition:</b> uart_atmega.c:46</div></div>
+<div class="ttc" id="auart_8h_html_a19d7bc5c5d4668b4b34c51a88e6dc657"><div class="ttname"><a href="uart_8h.html#a19d7bc5c5d4668b4b34c51a88e6dc657">uart_writeBuffer</a></div><div class="ttdeci">void uart_writeBuffer(const void *data, uint32_t len)</div><div class="ttdoc">transmit a byte array via UART bus</div><div class="ttdef"><b>Definition:</b> uart_atmega.c:37</div></div>
+<div class="ttc" id="auart_8h_html_ab497d11289820e1b33be1f6b8abb27d0"><div class="ttname"><a href="uart_8h.html#ab497d11289820e1b33be1f6b8abb27d0">uart_read</a></div><div class="ttdeci">uint8_t uart_read(void)</div><div class="ttdoc">get one byte from UART bus</div><div class="ttdef"><b>Definition:</b> uart_atmega.c:66</div></div>
+<div class="ttc" id="auart_8h_html_a0d7f9a8bf4848b0f65496c757155d780"><div class="ttname"><a href="uart_8h.html#a0d7f9a8bf4848b0f65496c757155d780">uart_flush</a></div><div class="ttdeci">uint8_t uart_flush(void)</div><div class="ttdoc">flush the receive buffer</div><div class="ttdef"><b>Definition:</b> uart_atmega.c:79</div></div>
+<div class="ttc" id="auart_8h_html_a4c5019b7af6727cf2adf96f601d2557f"><div class="ttname"><a href="uart_8h.html#a4c5019b7af6727cf2adf96f601d2557f">uart_write</a></div><div class="ttdeci">void uart_write(uint8_t data)</div><div class="ttdoc">transmit one byte via UART bus</div><div class="ttdef"><b>Definition:</b> uart_atmega.c:29</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">
