@@ -1,3 +1,11 @@
+/** 
+ * @file uart_atmega.c
+ * @brief Functions for UART communication protocol
+ * @author Nguyen Trong Phuong (aka trongphuongpro)
+ * @date 2019 Dec 28
+ */
+
+
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <stdio.h>

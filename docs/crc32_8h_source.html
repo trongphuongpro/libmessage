@@ -98,7 +98,7 @@ $(function() {
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="keywordtype">int</span> <a class="code" href="crc32_8h.html#a163e663f1fd09938b3f16021d8917372">crc32_check</a>(<span class="keyword">const</span> <span class="keywordtype">void</span>* data, uint32_t len);</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;uint8_t <a class="code" href="crc32_8h.html#a486334cc151b6296516c3e630c69ea4a">reflect</a>(uint8_t);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;uint8_t <a class="code" href="crc32_8h.html#a0095c9bb371b0a0129aaeb0f5710ce10">reflect</a>(uint8_t data);</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;}</div>
@@ -107,8 +107,8 @@ $(function() {
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* __CRC32__ */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="acrc32_8h_html_a11acfb80bcc64e1f15096435cefe1079"><div class="ttname"><a href="crc32_8h.html#a11acfb80bcc64e1f15096435cefe1079">crc32_t</a></div><div class="ttdeci">uint32_t crc32_t</div><div class="ttdoc">datatype for CRC-32 checksum value</div><div class="ttdef"><b>Definition:</b> crc32.h:25</div></div>
-<div class="ttc" id="acrc32_8h_html_a486334cc151b6296516c3e630c69ea4a"><div class="ttname"><a href="crc32_8h.html#a486334cc151b6296516c3e630c69ea4a">reflect</a></div><div class="ttdeci">uint8_t reflect(uint8_t)</div><div class="ttdoc">reflect one byte data.</div></div>
 <div class="ttc" id="acrc32_8h_html_a163e663f1fd09938b3f16021d8917372"><div class="ttname"><a href="crc32_8h.html#a163e663f1fd09938b3f16021d8917372">crc32_check</a></div><div class="ttdeci">int crc32_check(const void *data, uint32_t len)</div><div class="ttdoc">check the integrity of data.</div></div>
+<div class="ttc" id="acrc32_8h_html_a0095c9bb371b0a0129aaeb0f5710ce10"><div class="ttname"><a href="crc32_8h.html#a0095c9bb371b0a0129aaeb0f5710ce10">reflect</a></div><div class="ttdeci">uint8_t reflect(uint8_t data)</div><div class="ttdoc">reflect one byte data.</div></div>
 <div class="ttc" id="acrc32_8h_html_a5d0dacbd251b370b6c2c5afd8207ec51"><div class="ttname"><a href="crc32_8h.html#a5d0dacbd251b370b6c2c5afd8207ec51">crc32_compute</a></div><div class="ttdeci">crc32_t crc32_compute(const void *data, uint32_t len)</div><div class="ttdoc">compute CRC-32 checksum value for a byte array.</div></div>
 <div class="ttc" id="acrc32_8h_html_a41e6c9af25a9b41f83886c7121615aba"><div class="ttname"><a href="crc32_8h.html#a41e6c9af25a9b41f83886c7121615aba">crc32_init</a></div><div class="ttdeci">void crc32_init(void)</div><div class="ttdoc">initialize a table containing 255 predefined CRC-32 values</div></div>
 <div class="ttc" id="acrc32_8h_html_ae00328ba2f0dce927c49991fbbcc453f"><div class="ttname"><a href="crc32_8h.html#ae00328ba2f0dce927c49991fbbcc453f">crc32_selfcheck</a></div><div class="ttdeci">int crc32_selfcheck(const void *data, uint32_t len, crc32_t checksum)</div><div class="ttdoc">check the accuracy of computed CRC-32 checksum value.</div></div>
