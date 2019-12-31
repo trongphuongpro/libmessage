@@ -1,5 +1,5 @@
 /** 
- * @file uart_message.h
+ * @file message.h
  * @brief Function prototypes for message protocol
  *  
  * This library is used to create Data Link Layer for existed Physical Layers,
