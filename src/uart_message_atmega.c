@@ -14,7 +14,7 @@
 #include <string.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
-#include "uart_message.h"
+#include "message.h"
 #include "uart.h"
 
 
@@ -42,7 +42,7 @@ static volatile MessagePacket rxPacket;
 static MessagePacket txPacket;
 
 
-volatile MessagePacket* uart_message_create(uint32_t baudrate) {
+volatile MessagePacket* uart_message_init(uint32_t baudrate) {
 	
 	uart_open(baudrate);
 	crc32_init();
@@ -88,7 +88,7 @@ static void createPacket(	const void* _preamble,
 }
 
 
-void uart_message_send(	const void* _preamble, 
+void message_send(	const void* _preamble, 
 						uint8_t des, 
 						uint8_t src, 
 						const void* _data, 
@@ -179,7 +179,7 @@ static void parseChecksum() {
 }
 
 
-int uart_message_verifyChecksum() {
+int message_verifyChecksum() {
 	if (currentStep == idle) {
 		/*crc32_t ret = crc32_compute(&rxPacket, sizeof(rxPacket.preamble) 
 											+ sizeof(rxPacket.address) 

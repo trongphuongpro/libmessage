@@ -73,7 +73,7 @@ extern volatile steps currentStep;
  * @param baudrate UART baudrate.
  * @return pointer to received MessagePacket.
  */
-volatile MessagePacket* uart_message_create(uint32_t baudrate);
+volatile MessagePacket* uart_message_init(uint32_t baudrate);
 
 
 /** 
@@ -86,7 +86,7 @@ volatile MessagePacket* uart_message_create(uint32_t baudrate);
  * @param len length of message. 
  * @return nothing.
  */
-void uart_message_send(const void* preamble, 
+void message_send(const void* preamble, 
 						uint8_t destination, 
 						uint8_t source, 
 						const void* payload, 
@@ -99,7 +99,7 @@ void uart_message_send(const void* preamble,
  * @return 0: OK
  * @return -1: Error
  */
-int uart_message_verifyChecksum(void);
+int message_verifyChecksum(void);
 
 #ifdef __cplusplus
 }
