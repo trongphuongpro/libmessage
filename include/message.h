@@ -2,14 +2,14 @@
  * @file message.h
  * @brief Function prototypes for message protocol
  *  
- * This library is used to create Data Link Layer for existed Physical Layers,
+ * This C library is used to create Data Link Layer for existed Physical Layers,
  * such as UART, SPI, I2C,...
 
  * This file contains the prototypes, struct, enum and extern variable
  * that you will need, in order to use this library.
 
  * @author Nguyen Trong Phuong (aka trongphuongpro)
- * @date 2019 Dec 28
+ * @date December 28, 2019 
  */
 
 
