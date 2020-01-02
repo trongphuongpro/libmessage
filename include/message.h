@@ -51,11 +51,11 @@ typedef enum  {	parsingPreamble=0, /**< 0 */
  * @brief Struct contains message packet
  */  
 typedef struct {
-	uint8_t preamble[MESSAGE_PREAMBLE_SIZE]; /**< preamble of message packet */
-	uint8_t address[2]; /**< destination and source address: 2 bytes*/
-	uint8_t payloadSize; /**< size of payload: 1 byte */
-	uint8_t payload[MESSAGE_MAX_PAYLOAD_SIZE]; /**< payload */
-	crc32_t checksum; /**< CRC-32 checksum: 4 bytes */
+	uint8_t preamble[MESSAGE_PREAMBLE_SIZE]; /**< @brief preamble of message packet */
+	uint8_t address[2]; /**< @brief destination and source address: 2 bytes*/
+	uint8_t payloadSize; /**< @brief size of payload: 1 byte */
+	uint8_t payload[MESSAGE_MAX_PAYLOAD_SIZE]; /**< @brief payload */
+	crc32_t checksum; /**< @brief CRC-32 checksum: 4 bytes */
 } __attribute__((__packed__)) MessagePacket;
 
 
