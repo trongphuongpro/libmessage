@@ -94,6 +94,18 @@ void message_send(const void* preamble,
 
 
 /** 
+ * @brief Set valid preamble (4 bytes) for incoming packet
+ *
+ * @param b1 first byte.
+ * @param b2 second byte.
+ * @param b3 third byte.
+ * @param b4 last byte.
+ * @return nothing.
+ */
+void message_setPreamble(uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4);
+
+
+/** 
  * @brief Check the integrity of the data
  *
  * @return 0: OK

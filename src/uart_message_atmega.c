@@ -36,7 +36,7 @@ static callbacktype callback[] = {	parsePreamble,
 
 volatile steps currentStep = parsingPreamble;
 
-const uint8_t required_preamble[MESSAGE_PREAMBLE_SIZE] = {0xAA, 0xBB, 0xCC, 0xDD};
+static uint8_t validPreamble[MESSAGE_PREAMBLE_SIZE] = {0xAA, 0xBB, 0xCC, 0xDD};
 
 static volatile MessagePacket rxPacket;
 static MessagePacket txPacket;
@@ -49,6 +49,14 @@ volatile MessagePacket* uart_message_init(uint32_t baudrate) {
 	sei();
 
 	return &rxPacket;
+}
+
+
+void message_setPreamble(uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4) {
+	validPreamble[0] = b1;
+	validPreamble[1] = b2;
+	validPreamble[2] = b3;
+	validPreamble[3] = b4;
 }
 
 
@@ -111,7 +119,7 @@ static void parsePreamble() {
 
 		rxPacket.preamble[counter] = UDR0;
 
-		if (rxPacket.preamble[counter] == required_preamble[counter]) {
+		if (rxPacket.preamble[counter] == validPreamble[counter]) {
 			counter++;
 		}
 		else {
