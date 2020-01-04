@@ -24,13 +24,13 @@ extern "C" {
 
 
 /** 
- * massage preamble size
+ * @brief massage preamble size
  */	
 #define MESSAGE_PREAMBLE_SIZE		4
 
 
 /** 
- * maximum payload size
+ * @brief maximum payload size
  */		
 #define MESSAGE_MAX_PAYLOAD_SIZE	100
 
@@ -79,7 +79,7 @@ volatile MessagePacket* uart_message_init(uint32_t baudrate);
 /** 
  * @brief Send message packet
  *
- * @param baudrate UART baudrate.
+ * @param preamble UART baudrate.
  * @param destination Receiver's address.
  * @param source Transmitter's address.
  * @param payload message need to be sent.

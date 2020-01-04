@@ -15,7 +15,16 @@ extern "C" {
 
 #include <stdint.h>
 
+
+/**
+ * @brief CRC-32 Polynomial
+ */
 #define CRC32POLY			0x04C11DB7
+
+
+/**
+ * @brief Reversed CRC-32 Polynomial
+ */
 #define CRC32POLY_REVERSE	0xEDB88320
 
 

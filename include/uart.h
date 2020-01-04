@@ -45,7 +45,7 @@ void uart_writeBuffer(const void* data, uint32_t len);
 /**
  * @brief print one character to UART terminal
  *
- * character '\\n' or '\r' will be converted to '\r\\n'
+ * character '\\n' or '\\r' will be converted to '\\r\\n'
  *
  * @param data one byte data.
  * @return nothing.

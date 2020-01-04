@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.16"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Message Protocol: /home/trongphuong/Work/AVR/libraries/message/include/message.h File Reference</title>
+<title>MessageProtocol: /home/trongphuong/Work/AVR/libraries/message/include/message.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Message Protocol
+   <div id="projectname">MessageProtocol
    </div>
   </td>
  </tr>
@@ -90,9 +90,13 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a98382c952465707b612c0367a9645ea4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="message_8h.html#a98382c952465707b612c0367a9645ea4">MESSAGE_PREAMBLE_SIZE</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memitem:a98382c952465707b612c0367a9645ea4"><td class="memItemLeft" align="right" valign="top"><a id="a98382c952465707b612c0367a9645ea4"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="message_8h.html#a98382c952465707b612c0367a9645ea4">MESSAGE_PREAMBLE_SIZE</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memdesc:a98382c952465707b612c0367a9645ea4"><td class="mdescLeft">&#160;</td><td class="mdescRight">massage preamble size <br /></td></tr>
 <tr class="separator:a98382c952465707b612c0367a9645ea4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab780b9319a3053847d1728617ffeeabb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="message_8h.html#ab780b9319a3053847d1728617ffeeabb">MESSAGE_MAX_PAYLOAD_SIZE</a>&#160;&#160;&#160;100</td></tr>
+<tr class="memitem:ab780b9319a3053847d1728617ffeeabb"><td class="memItemLeft" align="right" valign="top"><a id="ab780b9319a3053847d1728617ffeeabb"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="message_8h.html#ab780b9319a3053847d1728617ffeeabb">MESSAGE_MAX_PAYLOAD_SIZE</a>&#160;&#160;&#160;100</td></tr>
+<tr class="memdesc:ab780b9319a3053847d1728617ffeeabb"><td class="mdescLeft">&#160;</td><td class="mdescRight">maximum payload size <br /></td></tr>
 <tr class="separator:ab780b9319a3053847d1728617ffeeabb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
@@ -118,6 +122,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ae071b94ae3016fd71878d698ecff3b1e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="message_8h.html#ae071b94ae3016fd71878d698ecff3b1e">message_send</a> (const void *preamble, uint8_t destination, uint8_t source, const void *payload, uint8_t len)</td></tr>
 <tr class="memdesc:ae071b94ae3016fd71878d698ecff3b1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send message packet.  <a href="message_8h.html#ae071b94ae3016fd71878d698ecff3b1e">More...</a><br /></td></tr>
 <tr class="separator:ae071b94ae3016fd71878d698ecff3b1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad22f8d31adab5aaae67ef6eed824d86e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="message_8h.html#ad22f8d31adab5aaae67ef6eed824d86e">message_setPreamble</a> (uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4)</td></tr>
+<tr class="memdesc:ad22f8d31adab5aaae67ef6eed824d86e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set valid preamble (4 bytes) for incoming packet.  <a href="message_8h.html#ad22f8d31adab5aaae67ef6eed824d86e">More...</a><br /></td></tr>
+<tr class="separator:ad22f8d31adab5aaae67ef6eed824d86e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a70356ff25a140683374ac53af01b9cf8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="message_8h.html#a70356ff25a140683374ac53af01b9cf8">message_verifyChecksum</a> (void)</td></tr>
 <tr class="memdesc:a70356ff25a140683374ac53af01b9cf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the integrity of the data.  <a href="message_8h.html#a70356ff25a140683374ac53af01b9cf8">More...</a><br /></td></tr>
 <tr class="separator:a70356ff25a140683374ac53af01b9cf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -135,38 +142,7 @@ volatile <a class="el" href="message_8h.html#a4d629e97dab1ddb8b4348b94f29fd12d">
 <p>This file contains the prototypes, struct, enum and extern variable that you will need, in order to use this library.</p>
 <dl class="section author"><dt>Author</dt><dd>Nguyen Trong Phuong (aka trongphuongpro) </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>December 28, 2019 </dd></dl>
-</div><h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="ab780b9319a3053847d1728617ffeeabb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab780b9319a3053847d1728617ffeeabb">&#9670;&nbsp;</a></span>MESSAGE_MAX_PAYLOAD_SIZE</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MESSAGE_MAX_PAYLOAD_SIZE&#160;&#160;&#160;100</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>maximum payload size </p>
-
-</div>
-</div>
-<a id="a98382c952465707b612c0367a9645ea4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a98382c952465707b612c0367a9645ea4">&#9670;&nbsp;</a></span>MESSAGE_PREAMBLE_SIZE</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MESSAGE_PREAMBLE_SIZE&#160;&#160;&#160;4</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>massage preamble size </p>
-
-</div>
-</div>
-<h2 class="groupheader">Enumeration Type Documentation</h2>
+</div><h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="a4d629e97dab1ddb8b4348b94f29fd12d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4d629e97dab1ddb8b4348b94f29fd12d">&#9670;&nbsp;</a></span>steps</h2>
 
@@ -245,11 +221,63 @@ volatile <a class="el" href="message_8h.html#a4d629e97dab1ddb8b4348b94f29fd12d">
 <p>Send message packet. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">baudrate</td><td>UART baudrate. </td></tr>
+    <tr><td class="paramname">preamble</td><td>UART baudrate. </td></tr>
     <tr><td class="paramname">destination</td><td>Receiver's address. </td></tr>
     <tr><td class="paramname">source</td><td>Transmitter's address. </td></tr>
     <tr><td class="paramname">payload</td><td>message need to be sent. </td></tr>
     <tr><td class="paramname">len</td><td>length of message. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>nothing. </dd></dl>
+
+</div>
+</div>
+<a id="ad22f8d31adab5aaae67ef6eed824d86e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad22f8d31adab5aaae67ef6eed824d86e">&#9670;&nbsp;</a></span>message_setPreamble()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void message_setPreamble </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>b1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>b2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>b3</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>b4</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set valid preamble (4 bytes) for incoming packet. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">b1</td><td>first byte. </td></tr>
+    <tr><td class="paramname">b2</td><td>second byte. </td></tr>
+    <tr><td class="paramname">b3</td><td>third byte. </td></tr>
+    <tr><td class="paramname">b4</td><td>last byte. </td></tr>
   </table>
   </dd>
 </dl>

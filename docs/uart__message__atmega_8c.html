@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.16"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Message Protocol: /home/trongphuong/Work/AVR/libraries/message/src/uart_message_atmega.c File Reference</title>
+<title>MessageProtocol: /home/trongphuong/Work/AVR/libraries/message/src/uart_message_atmega.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Message Protocol
+   <div id="projectname">MessageProtocol
    </div>
   </td>
  </tr>
@@ -94,6 +94,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a2e1c6d3c7684a77a87c095c76494ae0f"><td class="memItemLeft" align="right" valign="top">volatile <a class="el" href="structMessagePacket.html">MessagePacket</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="uart__message__atmega_8c.html#a2e1c6d3c7684a77a87c095c76494ae0f">uart_message_init</a> (uint32_t baudrate)</td></tr>
 <tr class="memdesc:a2e1c6d3c7684a77a87c095c76494ae0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize message transmitting/receiving procedure.  <a href="uart__message__atmega_8c.html#a2e1c6d3c7684a77a87c095c76494ae0f">More...</a><br /></td></tr>
 <tr class="separator:a2e1c6d3c7684a77a87c095c76494ae0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad22f8d31adab5aaae67ef6eed824d86e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="uart__message__atmega_8c.html#ad22f8d31adab5aaae67ef6eed824d86e">message_setPreamble</a> (uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4)</td></tr>
+<tr class="memdesc:ad22f8d31adab5aaae67ef6eed824d86e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set valid preamble (4 bytes) for incoming packet.  <a href="uart__message__atmega_8c.html#ad22f8d31adab5aaae67ef6eed824d86e">More...</a><br /></td></tr>
+<tr class="separator:ad22f8d31adab5aaae67ef6eed824d86e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abdeb04a0b0bca1e1b6efe98f495cf167"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="uart__message__atmega_8c.html#abdeb04a0b0bca1e1b6efe98f495cf167">message_send</a> (const void *_preamble, uint8_t des, uint8_t src, const void *_data, uint8_t len)</td></tr>
 <tr class="memdesc:abdeb04a0b0bca1e1b6efe98f495cf167"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send message packet.  <a href="uart__message__atmega_8c.html#abdeb04a0b0bca1e1b6efe98f495cf167">More...</a><br /></td></tr>
 <tr class="separator:abdeb04a0b0bca1e1b6efe98f495cf167"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -110,9 +113,6 @@ Variables</h2></td></tr>
 volatile <a class="el" href="message_8h.html#a4d629e97dab1ddb8b4348b94f29fd12d">steps</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="uart__message__atmega_8c.html#a4309069a04a2cd4f8c3d614feb4c38da">currentStep</a> = <a class="el" href="message_8h.html#a4d629e97dab1ddb8b4348b94f29fd12da9d73db06d0902bee7ddbc37391f8c874">parsingPreamble</a></td></tr>
 <tr class="memdesc:a4309069a04a2cd4f8c3d614feb4c38da"><td class="mdescLeft">&#160;</td><td class="mdescRight">global variable contains current state of procedure <br /></td></tr>
 <tr class="separator:a4309069a04a2cd4f8c3d614feb4c38da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af18a4df4ae9ad4d18b08c2ed6bc96f6c"><td class="memItemLeft" align="right" valign="top"><a id="af18a4df4ae9ad4d18b08c2ed6bc96f6c"></a>
-const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>required_preamble</b> [<a class="el" href="message_8h.html#a98382c952465707b612c0367a9645ea4">MESSAGE_PREAMBLE_SIZE</a>] = {0xAA, 0xBB, 0xCC, 0xDD}</td></tr>
-<tr class="separator:af18a4df4ae9ad4d18b08c2ed6bc96f6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Implementations for message protocol. </p>
@@ -167,11 +167,63 @@ const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>required_pre
 <p>Send message packet. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">baudrate</td><td>UART baudrate. </td></tr>
+    <tr><td class="paramname">preamble</td><td>UART baudrate. </td></tr>
     <tr><td class="paramname">destination</td><td>Receiver's address. </td></tr>
     <tr><td class="paramname">source</td><td>Transmitter's address. </td></tr>
     <tr><td class="paramname">payload</td><td>message need to be sent. </td></tr>
     <tr><td class="paramname">len</td><td>length of message. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>nothing. </dd></dl>
+
+</div>
+</div>
+<a id="ad22f8d31adab5aaae67ef6eed824d86e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad22f8d31adab5aaae67ef6eed824d86e">&#9670;&nbsp;</a></span>message_setPreamble()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void message_setPreamble </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>b1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>b2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>b3</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>b4</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set valid preamble (4 bytes) for incoming packet. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">b1</td><td>first byte. </td></tr>
+    <tr><td class="paramname">b2</td><td>second byte. </td></tr>
+    <tr><td class="paramname">b3</td><td>third byte. </td></tr>
+    <tr><td class="paramname">b4</td><td>last byte. </td></tr>
   </table>
   </dd>
 </dl>

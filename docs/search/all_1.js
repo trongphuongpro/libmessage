@@ -7,5 +7,7 @@ var searchData=
   ['crc32_5finit_5',['crc32_init',['../crc32_8h.html#a41e6c9af25a9b41f83886c7121615aba',1,'crc32.h']]],
   ['crc32_5fselfcheck_6',['crc32_selfcheck',['../crc32_8h.html#ae00328ba2f0dce927c49991fbbcc453f',1,'crc32.h']]],
   ['crc32_5ft_7',['crc32_t',['../crc32_8h.html#a11acfb80bcc64e1f15096435cefe1079',1,'crc32.h']]],
-  ['currentstep_8',['currentStep',['../message_8h.html#a4309069a04a2cd4f8c3d614feb4c38da',1,'currentStep():&#160;uart_message_atmega.c'],['../uart__message__atmega_8c.html#a4309069a04a2cd4f8c3d614feb4c38da',1,'currentStep():&#160;uart_message_atmega.c']]]
+  ['crc32poly_8',['CRC32POLY',['../crc32_8h.html#a9e13892a1d12dd94447908d840a1d364',1,'crc32.h']]],
+  ['crc32poly_5freverse_9',['CRC32POLY_REVERSE',['../crc32_8h.html#a634fca329a19af519544b2cd50761f74',1,'crc32.h']]],
+  ['currentstep_10',['currentStep',['../message_8h.html#a4309069a04a2cd4f8c3d614feb4c38da',1,'currentStep():&#160;uart_message_atmega.c'],['../uart__message__atmega_8c.html#a4309069a04a2cd4f8c3d614feb4c38da',1,'currentStep():&#160;uart_message_atmega.c']]]
 ];
