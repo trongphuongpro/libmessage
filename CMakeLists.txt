@@ -14,6 +14,7 @@ set(CMAKE_EXE_LINKER_FLAGS -mmcu=${MCU})
 set(TARGET message)
 
 add_library(${TARGET} STATIC src/uart_message_atmega.c
+							src/ringbuffer.c
 							lib/uart_atmega.c)
 target_link_libraries(${TARGET} ${CMAKE_CURRENT_SOURCE_DIR}/lib/libcrc32.a)
 target_include_directories(${TARGET} PUBLIC include)
@@ -23,7 +24,7 @@ target_compile_options(${TARGET} PUBLIC -mmcu=${MCU}
 										-std=gnu11
 										-O2
 										-Wall
-										
+										-Werror
 )
 
 target_compile_definitions(${TARGET} PUBLIC F_CPU=${F_CPU})

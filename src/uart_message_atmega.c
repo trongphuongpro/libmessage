@@ -11,20 +11,49 @@
 
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
 #include "message.h"
+#include "ringbuffer.h"
 #include "uart.h"
 
+/** 
+ * @brief massage preamble size
+ */	
+#define MESSAGE_PREAMBLE_SIZE	4
 
-static void createPacket(const void*, uint8_t, uint8_t, const void*, uint8_t);
+enum steps {	parsingPreamble=0, /**< 0 */
+				parsingAddress, /**< 1 */
+				parsingSize, /**< 2 */
+				parsingPayload, /**< 3 */
+				parsingChecksum /**< 4 */
+};
 
+/** 
+ * @brief Struct contains message frame
+ */  
+struct MessageFrame {
+	uint8_t preamble[MESSAGE_PREAMBLE_SIZE]; /**< @brief preamble of message frame */
+	uint8_t address[2]; /**< @brief destination and source address: 2 bytes*/
+	uint8_t payloadSize; /**< @brief size of payload: 1 byte */
+	uint8_t *payload; /**< @brief payload */
+	crc32_t checksum; /**< @brief CRC-32 checksum: 4 bytes */
+} __attribute__((__packed__));
+
+typedef struct MessageFrame* MessageFrame_t;
+
+static void createFrame(const void*, uint8_t, uint8_t, const void*, uint8_t);
 static void parsePreamble(void);
 static void parseAddress(void);
 static void parseSize(void);
 static void parsePayload(void);
 static void parseChecksum(void);
+
+static int verifyChecksum(void);
+
+static Message_t extractMessage(MessageFrame_t);
 
 
 typedef void (*callbacktype)(void);
@@ -38,21 +67,34 @@ volatile steps currentStep = parsingPreamble;
 
 static uint8_t validPreamble[MESSAGE_PREAMBLE_SIZE] = {0xAA, 0xBB, 0xCC, 0xDD};
 
-static volatile MessagePacket rxPacket;
-static MessagePacket txPacket;
+static volatile MessageFrame_t rxFrame;
+static MessageFrame_t txFrame;
+static MessageBox_t frameBuffer;
 
 
-volatile MessagePacket* uart_message_init(uint32_t baudrate) {
+MessageBox_t uart_messagebox_create(uint32_t baudrate, uint8_t num) {
 	
 	uart_open(baudrate);
 	crc32_init();
+	frameBuffer = ringbuffer_create(num);
+
+	rxFrame = calloc(1, sizeof(struct MessageFrame));
+	txFrame = calloc(1, sizeof(struct MessageFrame));
+
 	sei();
 
-	return &rxPacket;
+	return frameBuffer;
 }
 
 
-void message_setPreamble(uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4) {
+void messagebox_destroy() {
+	ringbuffer_destroy(frameBuffer);
+	free(rxFrame);
+	free(txFrame);
+}
+
+
+void messagebox_setPreamble(uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4) {
 	validPreamble[0] = b1;
 	validPreamble[1] = b2;
 	validPreamble[2] = b3;
@@ -60,7 +102,7 @@ void message_setPreamble(uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4) {
 }
 
 
-static void createPacket(	const void* _preamble, 
+static void createFrame(	const void* _preamble, 
 							uint8_t des, 
 							uint8_t src, 
 							const void* _data, 
@@ -71,45 +113,62 @@ static void createPacket(	const void* _preamble,
 
 	// PREAMBLE
 	for (uint8_t i = 0; i < MESSAGE_PREAMBLE_SIZE; i++) {
-		txPacket.preamble[i] = preamble[i];
+		txFrame->preamble[i] = preamble[i];
 	}
 
 	// ADDRESS
-	txPacket.address[0] = des;
-	txPacket.address[1] = src;
+	txFrame->address[0] = des;
+	txFrame->address[1] = src;
 
 	// PAYLOAD SIZE
-	txPacket.payloadSize = (len > MESSAGE_MAX_PAYLOAD_SIZE) ? MESSAGE_MAX_PAYLOAD_SIZE : len;
+	txFrame->payloadSize = (len > MESSAGE_MAX_PAYLOAD_SIZE) ? MESSAGE_MAX_PAYLOAD_SIZE : len;
 
-	// PAYLOAD 
-	for (uint8_t i = 0; i < txPacket.payloadSize; i++) {
-		txPacket.payload[i] = data[i];
+	// PAYLOAD
+	txFrame->payload = calloc(txFrame->payloadSize, sizeof(uint8_t));
+
+	for (uint8_t i = 0; i < txFrame->payloadSize; i++) {
+		txFrame->payload[i] = data[i];
 	}
 
 	// CHECKSUM CRC32
-	crc32_t checksum = crc32_compute(&txPacket, sizeof(txPacket.preamble) 
-											+ sizeof(txPacket.address) 
-											+ sizeof(txPacket.payloadSize)
-											+ txPacket.payloadSize);
+	crc32_t checksum = crc32_compute(&txFrame, sizeof(txFrame->preamble) 
+											+ sizeof(txFrame->address) 
+											+ sizeof(txFrame->payloadSize)
+											+ txFrame->payloadSize);
 
-	txPacket.checksum = checksum;
+	txFrame->checksum = checksum;
 }
 
 
-void message_send(	const void* _preamble, 
+void messagebox_send(	const void* _preamble, 
 						uint8_t des, 
 						uint8_t src, 
 						const void* _data, 
 						uint8_t len) 
 {
-	createPacket(_preamble, des, src, _data, len);
+	createFrame(_preamble, des, src, _data, len);
 
-	uart_writeBuffer(txPacket.preamble, 4);
-	uart_writeBuffer(txPacket.address, 2);
-	uart_write(txPacket.payloadSize);
-	uart_writeBuffer(txPacket.payload, txPacket.payloadSize);
-	uart_writeBuffer(&txPacket.checksum, sizeof(crc32_t));
+	uart_writeBuffer(txFrame->preamble, 4);
+	uart_writeBuffer(txFrame->address, 2);
+	uart_write(txFrame->payloadSize);
+	uart_writeBuffer(txFrame->payload, txFrame->payloadSize);
+	uart_writeBuffer(&txFrame->checksum, sizeof(crc32_t));
+
+	/**
+	 * free memore allocated for payload
+	 */
+	free(txFrame->payload);
 	_delay_ms(5);
+}
+
+
+bool messagebox_isAvailable(MessageBox_t buffer) {
+	return !ringbuffer_isEmpty(buffer);
+}
+
+
+int messagebox_pop(MessageBox_t buffer, Message_t data) {
+	return ringbuffer_pop(buffer, data);
 }
 
 
@@ -117,9 +176,9 @@ static void parsePreamble() {
 	if (currentStep == parsingPreamble) {
 		static int counter;
 
-		rxPacket.preamble[counter] = UDR0;
+		rxFrame->preamble[counter] = UDR0;
 
-		if (rxPacket.preamble[counter] == validPreamble[counter]) {
+		if (rxFrame->preamble[counter] == validPreamble[counter]) {
 			counter++;
 		}
 		else {
@@ -129,7 +188,7 @@ static void parsePreamble() {
 		// go to next currentStep if 4-byte preamble is read.
 		if (counter == MESSAGE_PREAMBLE_SIZE) {
 			counter = 0;
-			currentStep++;
+			currentStep = parsingAddress;
 		}
 	}
 }
@@ -139,12 +198,12 @@ static void parseAddress() {
 	if (currentStep == parsingAddress) {
 		static int counter;
 
-		rxPacket.address[counter++] = UDR0;
+		rxFrame->address[counter++] = UDR0;
 
 		// go to next currentStep if 2-byte address is read.
 		if (counter == 2) {
 			counter = 0;
-			currentStep++;
+			currentStep = parsingSize;
 		}
 	}
 }
@@ -152,8 +211,15 @@ static void parseAddress() {
 
 static void parseSize() {
 	if (currentStep == parsingSize) {
-		rxPacket.payloadSize = UDR0;
-		currentStep++;
+		rxFrame->payloadSize = UDR0;
+
+		if (rxFrame->payloadSize > MESSAGE_MAX_PAYLOAD_SIZE) {
+			rxFrame->payloadSize = MESSAGE_MAX_PAYLOAD_SIZE;
+		}
+
+		rxFrame->payload = calloc(rxFrame->payloadSize, sizeof(uint8_t));
+
+		currentStep = parsingPayload;
 	}
 }
 
@@ -162,11 +228,11 @@ static void parsePayload() {
 	if (currentStep == parsingPayload) {
 		static int counter;
 
-		rxPacket.payload[counter++] = UDR0;
+		rxFrame->payload[counter++] = UDR0;
 
-		if (counter == rxPacket.payloadSize || counter == MESSAGE_MAX_PAYLOAD_SIZE) {
+		if (counter == rxFrame->payloadSize) {
 			counter = 0;
-			currentStep++;
+			currentStep = parsingChecksum;
 		}
 	}
 }
@@ -176,39 +242,72 @@ static void parseChecksum() {
 	if (currentStep == parsingChecksum) {
 		static int counter;
 
-		*((uint8_t*)(&rxPacket.checksum)+counter) = UDR0;
-		counter++;
+		((uint8_t*)&rxFrame->checksum)[counter++] = UDR0;
 
 		if (counter == sizeof(crc32_t)) {
 			counter = 0;
-			currentStep = idle;
+
+			//if (verifyChecksum() == 0) {
+			verifyChecksum();
+
+			ringbuffer_push(frameBuffer, extractMessage(rxFrame));
+
+			/**
+	 		 * free memore allocated for payload
+	 		 */
+			free(rxFrame->payload);
+
+			//}
+			currentStep = parsingPreamble;
 		}
 	}
 }
 
 
-int message_verifyChecksum() {
-	if (currentStep == idle) {
-		/*crc32_t ret = crc32_compute(&rxPacket, sizeof(rxPacket.preamble) 
-											+ sizeof(rxPacket.address) 
-											+ sizeof(rxPacket.payloadSize)
-											+ rxPacket.payloadSize);*/
+int verifyChecksum() {
+	/*crc32_t ret = crc32_compute(&rxFrame, sizeof(rxFrame->preamble) 
+										+ sizeof(rxFrame->address) 
+										+ sizeof(rxFrame->payloadSize)
+										+ rxFrame->payloadSize);*/
 
-		crc32_t ret = crc32_compute(rxPacket.payload, rxPacket.payloadSize);
+	crc32_t ret = crc32_compute(rxFrame->payload, rxFrame->payloadSize);
 
-		if (ret == rxPacket.checksum) {
-			return 0;
-		}
-		else {
-			return -1;
-		}
+	if (ret == rxFrame->checksum) {
+		return 0;
 	}
-	return -1;
+	else {
+		return -1;
+	}
+}
+
+
+Message_t extractMessage(MessageFrame_t frame) {
+	Message_t message = calloc(1, sizeof(struct Message));
+
+	message->address = frame->address[1];
+	message->payloadSize = frame->payloadSize;
+	message->payload = calloc(message->payloadSize, sizeof(uint8_t));
+	memcpy(message->payload, frame->payload, message->payloadSize);
+
+	return message;
+}
+
+
+uint8_t messagebox_getCapacity(MessageBox_t buffer) {
+	return ringbuffer_getCapacity(buffer);
+}
+
+
+uint8_t messagebox_getUsedSpace(MessageBox_t buffer) {
+	return ringbuffer_getUsedSpace(buffer);
+}
+
+
+uint8_t messagebox_getFreeSpace(MessageBox_t buffer) {
+	return ringbuffer_getFreeSpace(buffer);
 }
 
 
 ISR(USART_RX_vect) {
-	if (currentStep < idle) {
-		callback[currentStep]();
-	}
+	callback[currentStep]();
 }
