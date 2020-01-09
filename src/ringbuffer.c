@@ -97,7 +97,7 @@ uint8_t ringbuffer_getUsedSpace(MessageBox_t buffer) {
 			number = buffer->writePoint - buffer->readPoint;
 		}
 		else {
-			number -= buffer->readPoint + buffer->writePoint;
+			number -= buffer->readPoint - buffer->writePoint;
 		}
 	}
 
@@ -133,14 +133,12 @@ void decrease_checkpoints(MessageBox_t buffer) {
 void ringbuffer_push(MessageBox_t buffer, Message_t data) {
 	assert(buffer && buffer->data);
 
-	buffer->data[buffer->writePoint] = data;
+	if (!buffer->isFull) {
+		buffer->data[buffer->writePoint] = data;
 
-	if (buffer->isFull) {
-		buffer->readPoint = (buffer->readPoint + 1) % buffer->capacity;
+		buffer->writePoint = (buffer->writePoint + 1) % buffer->capacity;
+		buffer->isFull = (buffer->readPoint == buffer->writePoint);
 	}
-
-	buffer->writePoint = (buffer->writePoint + 1) % buffer->capacity;
-	buffer->isFull = (buffer->readPoint == buffer->writePoint);
 }
 
 
