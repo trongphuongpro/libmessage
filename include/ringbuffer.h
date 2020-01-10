@@ -22,6 +22,10 @@ typedef struct MessageBox* MessageBox_t;
 
 typedef struct Message* Message_t;
 
+extern unsigned int __bss_end;
+extern unsigned int __heap_start;
+extern void *__brkval;
+
 /**
  * @brief create new ring buffer.
  * @param num max number of element in buffer.

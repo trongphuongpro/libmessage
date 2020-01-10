@@ -46,7 +46,7 @@ struct Message {
 	uint8_t address; /**< @brief destination and source address: 2 bytes*/
 	uint8_t payloadSize; /**< @brief size of payload: 1 byte */
 	uint8_t *payload; /**< @brief payload */
-};
+} __attribute__((packed));
 
 
 /** 

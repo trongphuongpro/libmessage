@@ -11,7 +11,7 @@
 #include <assert.h>
 #include "ringbuffer.h"
 #include "message.h"
-
+#include <avr/interrupt.h>
 
 struct MessageBox {
 	Message_t *data;
@@ -19,7 +19,7 @@ struct MessageBox {
 	uint8_t writePoint;
 	uint8_t capacity;
 	bool isFull;
-};
+} __attribute__((packed));
 
 
 MessageBox_t ringbuffer_create(uint8_t num) {
@@ -155,9 +155,14 @@ int ringbuffer_pop(MessageBox_t buffer, Message_t data) {
 		/**
 		 * free memory allocated for packet's payload
 		 */
+		printf("\nRAM free: %d bytes.\n", SP - ((uint16_t)(__brkval == 0) ? 
+								(uint16_t)&__bss_end : (uint16_t)__brkval));
+		printf(">> Free message");
 		free(buffer->data[buffer->readPoint]->payload);
 		free(buffer->data[buffer->readPoint]);
 
+		printf("\nRAM free: %d bytes.\n", SP - ((uint16_t)(__brkval == 0) ? 
+								(uint16_t)&__bss_end : (uint16_t)__brkval));
 		/**
 		 * update checkpoints after getting data into buffer
 		 */
