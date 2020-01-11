@@ -15,8 +15,9 @@ set(TARGET message)
 
 add_library(${TARGET} STATIC src/uart_message_atmega.c
 							src/ringbuffer.c
-							lib/uart_atmega.c)
-target_link_libraries(${TARGET} ${CMAKE_CURRENT_SOURCE_DIR}/lib/libcrc32.a)
+							lib/uart_atmega.c
+							lib/crc32.c)
+
 target_include_directories(${TARGET} PUBLIC include)
 
 #-----------------------------------------------------------------------------#

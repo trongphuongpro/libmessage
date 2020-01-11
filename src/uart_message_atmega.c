@@ -75,7 +75,7 @@ static MessageBox_t frameBuffer;
 MessageBox_t uart_messagebox_create(uint32_t baudrate, uint8_t num) {
 	
 	uart_open(baudrate);
-	crc32_init();
+
 	frameBuffer = ringbuffer_create(num);
 
 	rxFrame = calloc(1, sizeof(struct MessageFrame));
@@ -252,25 +252,24 @@ static void parseChecksum() {
 		if (counter == sizeof(crc32_t)) {
 			counter = 0;
 
-			//if (verifyChecksum() == 0) {
-			verifyChecksum();
+			if (verifyChecksum() == 0) {
 
-			if (!ringbuffer_isFull(frameBuffer)) {
-				ringbuffer_push(frameBuffer, extractMessage(rxFrame));
-			}
+				if (!ringbuffer_isFull(frameBuffer)) {
+					ringbuffer_push(frameBuffer, extractMessage(rxFrame));
+				}
 
-			/**
-	 		 * free memore allocated for payload
-	 		 */
-			printf("\nRAM free: %d bytes.\n", SP - ((uint16_t)(__brkval == 0) ? 
-								(uint16_t)&__bss_end : (uint16_t)__brkval));
-			printf(">> free payload");
-			free(rxFrame->payload);
-			printf("\nRAM free: %d bytes.\n", SP - ((uint16_t)(__brkval == 0) ? 
-								(uint16_t)&__bss_end : (uint16_t)__brkval));
+				/**
+		 		 * free memore allocated for payload
+		 		 */
+				printf("\nRAM free: %d bytes.\n", SP - ((uint16_t)(__brkval == 0) ? 
+									(uint16_t)&__bss_end : (uint16_t)__brkval));
+				printf(">> free payload");
+				free(rxFrame->payload);
+				printf("\nRAM free: %d bytes.\n", SP - ((uint16_t)(__brkval == 0) ? 
+									(uint16_t)&__bss_end : (uint16_t)__brkval));
 
-			//}
-			currentStep = parsingPreamble;
+				}
+				currentStep = parsingPreamble;
 		}
 	}
 }

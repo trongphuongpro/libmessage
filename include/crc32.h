@@ -35,13 +35,6 @@ typedef uint32_t crc32_t;
 
 
 /** 
- * @brief initialize a table containing 255 predefined CRC-32 values
- * @return nothing.
- */
-void crc32_init(void);
-
-
-/** 
  * @brief compute CRC-32 checksum value for a byte array.
  * @param data pointer to an array;
  * @param len the length of data in byte.

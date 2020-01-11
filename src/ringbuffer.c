@@ -11,7 +11,7 @@
 #include <assert.h>
 #include "ringbuffer.h"
 #include "message.h"
-#include <avr/interrupt.h>
+#include <avr/io.h>
 
 struct MessageBox {
 	Message_t *data;
