@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <avr/interrupt.h>
+#include <util/delay.h>
 #include "message.h"
 #include "ringbuffer.h"
 #include "uart.h"
@@ -268,12 +269,11 @@ static void parseChecksum() {
 
 
 int verifyChecksum() {
-	/*crc32_t ret = crc32_compute(&rxFrame, sizeof(rxFrame->preamble) 
-										+ sizeof(rxFrame->address) 
-										+ sizeof(rxFrame->payloadSize)
-										+ rxFrame->payloadSize);*/
-
-	crc32_t ret = crc32_compute(rxFrame->payload, rxFrame->payloadSize);
+	crc32_t ret = crc32_concat(crc32_compute(rxFrame, 
+											sizeof(rxFrame->preamble) 
+											+ sizeof(rxFrame->address) 
+											+ sizeof(rxFrame->payloadSize)),
+								rxFrame->payload, rxFrame->payloadSize);
 
 	if (ret == rxFrame->checksum) {
 		return 0;
