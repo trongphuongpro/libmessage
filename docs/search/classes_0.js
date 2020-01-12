@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['messagepacket_42',['MessagePacket',['../structMessagePacket.html',1,'']]]
+  ['message_61',['Message',['../structMessage.html',1,'']]],
+  ['messagebox_62',['MessageBox',['../structMessageBox.html',1,'']]],
+  ['messageframe_63',['MessageFrame',['../structMessageFrame.html',1,'']]]
 ];

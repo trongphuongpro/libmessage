@@ -1,6 +1,6 @@
 /** 
  * @file crc32.h
- * @brief Function prototypes for computing CRC-32 checksum
+ * @brief Function prototypes for computing CRC-32 checksum for AVR MCUs.
  * @author Nguyen Trong Phuong (aka trongphuongpro)
  * @date 2019 Dec 28
  */
@@ -17,18 +17,6 @@ extern "C" {
 
 
 /**
- * @brief CRC-32 Polynomial
- */
-#define CRC32POLY			0x04C11DB7
-
-
-/**
- * @brief Reversed CRC-32 Polynomial
- */
-#define CRC32POLY_REVERSE	0xEDB88320
-
-
-/**
  * @brief datatype for CRC-32 checksum value
  */
 typedef uint32_t crc32_t;
@@ -41,6 +29,16 @@ typedef uint32_t crc32_t;
  * @return CRC-32 checksum value.
  */
 crc32_t crc32_compute(const void* data, uint32_t len);
+
+
+/** 
+ * @brief compute CRC-32 checksum value for 2 separated data arrays.
+ * @param checksum existing checksum value.
+ * @param data pointer to new data array.
+ * @param len the length of new data in byte.
+ * @return CRC-32 checksum value.
+ */
+crc32_t crc32_concat(crc32_t checksum, const void* data, uint32_t len);
 
 
 /** 
@@ -65,13 +63,13 @@ int crc32_check(const void* data, uint32_t len);
 
 
 /** 
- * @brief reflect one byte data.
+ * @brief reverse one byte data.
  *
  * example: 0b10100011 --> 0b11000101
  * @param data one byte data.
- * @return reflected data byte.
+ * @return reversed data byte.
  */
-uint8_t reflect(uint8_t data);
+uint8_t reverse(uint8_t data);
 
 #ifdef __cplusplus
 }

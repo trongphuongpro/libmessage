@@ -66,35 +66,26 @@ $(function() {
 <h3><a id="index_c"></a>- c -</h3><ul>
 <li>crc32_check()
 : <a class="el" href="crc32_8h.html#a163e663f1fd09938b3f16021d8917372">crc32.h</a>
+, <a class="el" href="crc32_8c.html#a163e663f1fd09938b3f16021d8917372">crc32.c</a>
 </li>
 <li>crc32_compute()
-: <a class="el" href="crc32_8h.html#a5d0dacbd251b370b6c2c5afd8207ec51">crc32.h</a>
+: <a class="el" href="crc32_8c.html#a5d0dacbd251b370b6c2c5afd8207ec51">crc32.c</a>
+, <a class="el" href="crc32_8h.html#a5d0dacbd251b370b6c2c5afd8207ec51">crc32.h</a>
 </li>
-<li>crc32_init()
-: <a class="el" href="crc32_8h.html#a41e6c9af25a9b41f83886c7121615aba">crc32.h</a>
+<li>crc32_concat()
+: <a class="el" href="crc32_8h.html#a6cd0e5773dab575e4af538161549cb00">crc32.h</a>
+, <a class="el" href="crc32_8c.html#a6cd0e5773dab575e4af538161549cb00">crc32.c</a>
 </li>
 <li>crc32_selfcheck()
-: <a class="el" href="crc32_8h.html#ae00328ba2f0dce927c49991fbbcc453f">crc32.h</a>
+: <a class="el" href="crc32_8c.html#a84c3a0fa5b8f4fe9fadd83c6c8860c2e">crc32.c</a>
+, <a class="el" href="crc32_8h.html#ae00328ba2f0dce927c49991fbbcc453f">crc32.h</a>
 </li>
 <li>crc32_t
 : <a class="el" href="crc32_8h.html#a11acfb80bcc64e1f15096435cefe1079">crc32.h</a>
 </li>
-<li>CRC32POLY
-: <a class="el" href="crc32_8h.html#a9e13892a1d12dd94447908d840a1d364">crc32.h</a>
-</li>
-<li>CRC32POLY_REVERSE
-: <a class="el" href="crc32_8h.html#a634fca329a19af519544b2cd50761f74">crc32.h</a>
-</li>
 <li>currentStep
 : <a class="el" href="message_8h.html#a4309069a04a2cd4f8c3d614feb4c38da">message.h</a>
 , <a class="el" href="uart__message__atmega_8c.html#a4309069a04a2cd4f8c3d614feb4c38da">uart_message_atmega.c</a>
-</li>
-</ul>
-
-
-<h3><a id="index_i"></a>- i -</h3><ul>
-<li>idle
-: <a class="el" href="message_8h.html#a4d629e97dab1ddb8b4348b94f29fd12da0e9a37114c0e458d28d52f06ec0f2242">message.h</a>
 </li>
 </ul>
 
@@ -104,52 +95,102 @@ $(function() {
 : <a class="el" href="message_8h.html#ab780b9319a3053847d1728617ffeeabb">message.h</a>
 </li>
 <li>MESSAGE_PREAMBLE_SIZE
-: <a class="el" href="message_8h.html#a98382c952465707b612c0367a9645ea4">message.h</a>
+: <a class="el" href="uart__message__atmega_8c.html#a98382c952465707b612c0367a9645ea4">uart_message_atmega.c</a>
 </li>
-<li>message_send()
-: <a class="el" href="uart__message__atmega_8c.html#abdeb04a0b0bca1e1b6efe98f495cf167">uart_message_atmega.c</a>
-, <a class="el" href="message_8h.html#ae071b94ae3016fd71878d698ecff3b1e">message.h</a>
+<li>Message_t
+: <a class="el" href="ringbuffer_8h.html#a0ffb55238d6850054840db8ab1508ea3">ringbuffer.h</a>
+, <a class="el" href="message_8h.html#a0ffb55238d6850054840db8ab1508ea3">message.h</a>
 </li>
-<li>message_setPreamble()
-: <a class="el" href="message_8h.html#ad22f8d31adab5aaae67ef6eed824d86e">message.h</a>
-, <a class="el" href="uart__message__atmega_8c.html#ad22f8d31adab5aaae67ef6eed824d86e">uart_message_atmega.c</a>
+<li>messagebox_destroy()
+: <a class="el" href="message_8h.html#af41be924093a897368b2deb02e9536c1">message.h</a>
+, <a class="el" href="uart__message__atmega_8c.html#a293946a947420b5f75838a1232cc34a9">uart_message_atmega.c</a>
 </li>
-<li>message_verifyChecksum()
-: <a class="el" href="uart__message__atmega_8c.html#aca42bac361a1f6900c464876970caf57">uart_message_atmega.c</a>
-, <a class="el" href="message_8h.html#a70356ff25a140683374ac53af01b9cf8">message.h</a>
+<li>messagebox_getCapacity()
+: <a class="el" href="uart__message__atmega_8c.html#a136e0dce6aa0f6e3d5210f9543252327">uart_message_atmega.c</a>
+, <a class="el" href="message_8h.html#a136e0dce6aa0f6e3d5210f9543252327">message.h</a>
 </li>
-</ul>
-
-
-<h3><a id="index_p"></a>- p -</h3><ul>
-<li>parsingAddress
-: <a class="el" href="message_8h.html#a4d629e97dab1ddb8b4348b94f29fd12dadc8aefec8c034526049036707a165796">message.h</a>
+<li>messagebox_getFreeSpace()
+: <a class="el" href="message_8h.html#aa9330fd0873fad05117c79ea1ed4a4f4">message.h</a>
+, <a class="el" href="uart__message__atmega_8c.html#aa9330fd0873fad05117c79ea1ed4a4f4">uart_message_atmega.c</a>
 </li>
-<li>parsingChecksum
-: <a class="el" href="message_8h.html#a4d629e97dab1ddb8b4348b94f29fd12da78646d3db2dd162a0e715c8898e29b99">message.h</a>
+<li>messagebox_getUsedSpace()
+: <a class="el" href="message_8h.html#ab31f08a444c13111999a3e8ddfc49ef8">message.h</a>
+, <a class="el" href="uart__message__atmega_8c.html#ab31f08a444c13111999a3e8ddfc49ef8">uart_message_atmega.c</a>
 </li>
-<li>parsingPayload
-: <a class="el" href="message_8h.html#a4d629e97dab1ddb8b4348b94f29fd12dabb1877c6d58a5ac147760837aa83417c">message.h</a>
+<li>messagebox_isAvailable()
+: <a class="el" href="message_8h.html#a36932ecff94fa7fd9cb03319ce95077f">message.h</a>
+, <a class="el" href="uart__message__atmega_8c.html#a36932ecff94fa7fd9cb03319ce95077f">uart_message_atmega.c</a>
 </li>
-<li>parsingPreamble
-: <a class="el" href="message_8h.html#a4d629e97dab1ddb8b4348b94f29fd12da9d73db06d0902bee7ddbc37391f8c874">message.h</a>
+<li>messagebox_pop()
+: <a class="el" href="uart__message__atmega_8c.html#a3696bf78a0092524e4fc5e8467cffe77">uart_message_atmega.c</a>
+, <a class="el" href="message_8h.html#acf3a59cb685a9d329119dccde7f3eed7">message.h</a>
 </li>
-<li>parsingSize
-: <a class="el" href="message_8h.html#a4d629e97dab1ddb8b4348b94f29fd12da2353df7222aaac796bf634ab42e09bf9">message.h</a>
+<li>messagebox_send()
+: <a class="el" href="message_8h.html#a7dedf0091f3bb816affe9891f6538cfd">message.h</a>
+, <a class="el" href="uart__message__atmega_8c.html#a760ea141f4cc0377c714d0bac0fd3727">uart_message_atmega.c</a>
+</li>
+<li>messagebox_setPreamble()
+: <a class="el" href="message_8h.html#a98657150df5071ef2e16c264e18a9af8">message.h</a>
+, <a class="el" href="uart__message__atmega_8c.html#a98657150df5071ef2e16c264e18a9af8">uart_message_atmega.c</a>
+</li>
+<li>MessageBox_t
+: <a class="el" href="ringbuffer_8h.html#a7d0d58467daea3235cf7cbc927941069">ringbuffer.h</a>
+, <a class="el" href="message_8h.html#a7d0d58467daea3235cf7cbc927941069">message.h</a>
 </li>
 </ul>
 
 
 <h3><a id="index_r"></a>- r -</h3><ul>
-<li>reflect()
-: <a class="el" href="crc32_8h.html#a0095c9bb371b0a0129aaeb0f5710ce10">crc32.h</a>
+<li>reverse()
+: <a class="el" href="crc32_8h.html#ab2d3d4e8fd97f6b58185845d08c7b6be">crc32.h</a>
+, <a class="el" href="crc32_8c.html#a9abea887f27581b0aee2daa636cbbaa8">crc32.c</a>
+</li>
+<li>ringbuffer_clear()
+: <a class="el" href="ringbuffer_8c.html#a39b4b0e6a65945efb69abe746059dfcb">ringbuffer.c</a>
+, <a class="el" href="ringbuffer_8h.html#a39b4b0e6a65945efb69abe746059dfcb">ringbuffer.h</a>
+</li>
+<li>ringbuffer_create()
+: <a class="el" href="ringbuffer_8h.html#a8a7c8bb736ceaed377854c3affb10c09">ringbuffer.h</a>
+, <a class="el" href="ringbuffer_8c.html#a8a7c8bb736ceaed377854c3affb10c09">ringbuffer.c</a>
+</li>
+<li>ringbuffer_destroy()
+: <a class="el" href="ringbuffer_8c.html#a1ab6d4a77a67bebcb2c08746bccd78d8">ringbuffer.c</a>
+, <a class="el" href="ringbuffer_8h.html#a1ab6d4a77a67bebcb2c08746bccd78d8">ringbuffer.h</a>
+</li>
+<li>ringbuffer_getCapacity()
+: <a class="el" href="ringbuffer_8h.html#a26396d216b10ecadf9c9d204423039a0">ringbuffer.h</a>
+, <a class="el" href="ringbuffer_8c.html#a26396d216b10ecadf9c9d204423039a0">ringbuffer.c</a>
+</li>
+<li>ringbuffer_getFreeSpace()
+: <a class="el" href="ringbuffer_8h.html#afed213219c635f3ae412a6f406a47eaf">ringbuffer.h</a>
+, <a class="el" href="ringbuffer_8c.html#afed213219c635f3ae412a6f406a47eaf">ringbuffer.c</a>
+</li>
+<li>ringbuffer_getUsedSpace()
+: <a class="el" href="ringbuffer_8h.html#ae08051ec1f5568ced02d47da3c0cf095">ringbuffer.h</a>
+, <a class="el" href="ringbuffer_8c.html#ae08051ec1f5568ced02d47da3c0cf095">ringbuffer.c</a>
+</li>
+<li>ringbuffer_isEmpty()
+: <a class="el" href="ringbuffer_8c.html#a4e8c7c69c03ed67a96a2f59f264d1633">ringbuffer.c</a>
+, <a class="el" href="ringbuffer_8h.html#a4e8c7c69c03ed67a96a2f59f264d1633">ringbuffer.h</a>
+</li>
+<li>ringbuffer_isFull()
+: <a class="el" href="ringbuffer_8h.html#aa2cf04e08f766c091585a68761d34941">ringbuffer.h</a>
+, <a class="el" href="ringbuffer_8c.html#aa2cf04e08f766c091585a68761d34941">ringbuffer.c</a>
+</li>
+<li>ringbuffer_pop()
+: <a class="el" href="ringbuffer_8h.html#abf597238d767762faec182b2122ab4ba">ringbuffer.h</a>
+, <a class="el" href="ringbuffer_8c.html#a3a4b8aebba43a17dcc56069f3d931fa1">ringbuffer.c</a>
+</li>
+<li>ringbuffer_push()
+: <a class="el" href="ringbuffer_8c.html#aea53bd14d58be8265f0cf4d09fcb95db">ringbuffer.c</a>
+, <a class="el" href="ringbuffer_8h.html#a08a93d998eb419cd32969c959cdce765">ringbuffer.h</a>
 </li>
 </ul>
 
 
 <h3><a id="index_s"></a>- s -</h3><ul>
 <li>steps
-: <a class="el" href="message_8h.html#a4d629e97dab1ddb8b4348b94f29fd12d">message.h</a>
+: <a class="el" href="message_8h.html#af9de1b8ab1264b7942bfd92e079626a0">message.h</a>
 </li>
 </ul>
 
@@ -163,9 +204,9 @@ $(function() {
 : <a class="el" href="uart__atmega_8c.html#a15213b481d1b307822668cda26dcf804">uart_atmega.c</a>
 , <a class="el" href="uart_8h.html#a00dbbc6e035bfd12196ec47a99f8e1fe">uart.h</a>
 </li>
-<li>uart_message_init()
-: <a class="el" href="message_8h.html#a2e1c6d3c7684a77a87c095c76494ae0f">message.h</a>
-, <a class="el" href="uart__message__atmega_8c.html#a2e1c6d3c7684a77a87c095c76494ae0f">uart_message_atmega.c</a>
+<li>uart_messagebox_create()
+: <a class="el" href="message_8h.html#ae59e8619805e6a9b4d7a54a81e18089c">message.h</a>
+, <a class="el" href="uart__message__atmega_8c.html#ae59e8619805e6a9b4d7a54a81e18089c">uart_message_atmega.c</a>
 </li>
 <li>uart_open()
 : <a class="el" href="uart__atmega_8c.html#a865ab7e5b7532c470fdee0bfbed4b019">uart_atmega.c</a>

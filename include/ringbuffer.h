@@ -15,19 +15,24 @@ extern "C" {
 
 #include <stdbool.h>
 
+
 /**
- * @brief datatype for user's usage.
+ * @brief Abstract datatype of struct MessageBox.
+ *
+ * User can use it w/o the knowledge about struct MessageBox.
  */
 typedef struct MessageBox* MessageBox_t;
 
+/**
+ * @brief Abstract datatype of struct Message.
+ *
+ * User can use it w/o the knowledge about struct Message.
+ */
 typedef struct Message* Message_t;
 
-extern unsigned int __bss_end;
-extern unsigned int __heap_start;
-extern void *__brkval;
 
 /**
- * @brief create new ring buffer.
+ * @brief Create new ring buffer.
  * @param num max number of element in buffer.
  * @param size size of each element in buffer.
  * @return new ring buffer instance.
@@ -46,7 +51,7 @@ void ringbuffer_destroy(MessageBox_t buffer);
 
 
 /**
- * @brief reset existed ring buffer.
+ * @brief Reset existed ring buffer.
  * @param buffer ring buffer instance.
  * @return nothing.
  */
@@ -54,7 +59,7 @@ void ringbuffer_clear(MessageBox_t buffer);
 
 
 /**
- * @brief check if ring buffer is empty
+ * @brief Check if ring buffer is empty
  * @param buffer ring buffer instance.
  * @return state of ring buffer.
  */
@@ -62,7 +67,7 @@ bool ringbuffer_isEmpty(MessageBox_t buffer);
 
 
 /**
- * @brief check if ring buffer is full
+ * @brief Check if ring buffer is full
  * @param buffer ring buffer instance.
  * @return state of ring buffer.
  */
@@ -70,7 +75,7 @@ bool ringbuffer_isFull(MessageBox_t buffer);
 
 
 /**
- * @brief check the capacity of ring buffer
+ * @brief Check the capacity of ring buffer
  * @param buffer ring buffer instance.
  * @return the capacity of buffer
  */
@@ -78,7 +83,7 @@ uint8_t ringbuffer_getCapacity(MessageBox_t buffer);
 
 
 /**
- * @brief get the used space of ring buffer
+ * @brief Get the used space of ring buffer
  * @param buffer ring buffer instance.
  * @return the number of used space of buffer
  */
@@ -86,15 +91,29 @@ uint8_t ringbuffer_getUsedSpace(MessageBox_t buffer);
 
 
 /**
- * @brief get the free space of ring buffer
+ * @brief Get the free space of ring buffer
  * @param buffer ring buffer instance.
  * @return the number of free space of buffer
  */
 uint8_t ringbuffer_getFreeSpace(MessageBox_t buffer);
 
 
-void ringbuffer_push(MessageBox_t buffer, Message_t data);
-int ringbuffer_pop(MessageBox_t buffer, Message_t data);
+/**
+ * @brief Push new message to ring buffer
+ * @param buffer ring buffer instance.
+ * @param message message instance.
+ * @return the number of free space of buffer
+ */
+void ringbuffer_push(MessageBox_t buffer, Message_t message);
+
+
+/**
+ * @brief Pop a message from ring buffer
+ * @param buffer ring buffer instance.
+ * @param message message instance.
+ * @return 0: success, -1: failed due buffer is empty.
+ */
+int ringbuffer_pop(MessageBox_t buffer, Message_t message);
 
 
 #ifdef __cplusplus

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['idle_11',['idle',['../message_8h.html#a4d629e97dab1ddb8b4348b94f29fd12da0e9a37114c0e458d28d52f06ec0f2242',1,'message.h']]]
+  ['data_11',['data',['../structMessageBox.html#abceaa75f25349662f7a867638c5ab8c0',1,'MessageBox']]]
 ];

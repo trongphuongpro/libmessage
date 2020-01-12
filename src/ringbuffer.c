@@ -11,14 +11,17 @@
 #include <assert.h>
 #include "ringbuffer.h"
 #include "message.h"
-#include <avr/io.h>
 
+
+/** 
+ * @brief Struct contains FIFO buffer containing received messages.
+ */ 
 struct MessageBox {
-	Message_t *data;
-	uint8_t readPoint;
-	uint8_t writePoint;
-	uint8_t capacity;
-	bool isFull;
+	Message_t *data; /**< @brief Array of pointers to messages */
+	uint8_t readPoint; /**< @brief Reading point */
+	uint8_t writePoint; /**< @brief Writting point */
+	uint8_t capacity; /**< @brief The capacity of FIFO buffer */
+	bool isFull; /**< @brief State of buffer, full or not */
 } __attribute__((packed));
 
 
@@ -155,14 +158,9 @@ int ringbuffer_pop(MessageBox_t buffer, Message_t data) {
 		/**
 		 * free memory allocated for packet's payload
 		 */
-		printf("\nRAM free: %d bytes.\n", SP - ((uint16_t)(__brkval == 0) ? 
-								(uint16_t)&__bss_end : (uint16_t)__brkval));
-		printf(">> Free message");
 		free(buffer->data[buffer->readPoint]->payload);
 		free(buffer->data[buffer->readPoint]);
 
-		printf("\nRAM free: %d bytes.\n", SP - ((uint16_t)(__brkval == 0) ? 
-								(uint16_t)&__bss_end : (uint16_t)__brkval));
 		/**
 		 * update checkpoints after getting data into buffer
 		 */

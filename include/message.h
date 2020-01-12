@@ -36,7 +36,18 @@ extern "C" {
 typedef enum steps steps;
 
 
+/**
+ * @brief Abstract datatype of struct MessageBox.
+ *
+ * User can use it w/o the knowledge about struct MessageBox.
+ */
 typedef struct MessageBox* MessageBox_t;
+
+/**
+ * @brief Abstract datatype of struct Message.
+ *
+ * User can use it w/o the knowledge about struct Message.
+ */
 typedef struct Message* Message_t;
 
 
@@ -106,16 +117,45 @@ void messagebox_send(const void* preamble,
  */
 void messagebox_setPreamble(uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4);
 
+
+/**
+ * @brief check if new message is available in Message Box
+ * @param buffer MessageBox instance.
+ * @return true/false.
+ */
 bool messagebox_isAvailable(MessageBox_t buffer);
 
-int messagebox_pop(MessageBox_t buffer, Message_t data);
 
+/**
+ * @brief pop a message from Message Box
+ * @param buffer MessageBox instance.
+ * @param message message instance.
+ * @return 0: success, -1: failed due Message Box is empty.
+ */
+int messagebox_pop(MessageBox_t buffer, Message_t message);
+
+
+/**
+ * @brief check the capacity of Message Box
+ * @param buffer MessageBox instance.
+ * @return the capacity of buffer
+ */
 uint8_t messagebox_getCapacity(MessageBox_t buffer);
 
 
+/**
+ * @brief get the used space of Message Box
+ * @param buffer MessageBox instance.
+ * @return the number of used space of buffer
+ */
 uint8_t messagebox_getUsedSpace(MessageBox_t buffer);
 
 
+/**
+ * @brief get the free space of Message Box
+ * @param buffer MessageBox instance.
+ * @return the number of free space of buffer
+ */
 uint8_t messagebox_getFreeSpace(MessageBox_t buffer);
 
 #ifdef __cplusplus

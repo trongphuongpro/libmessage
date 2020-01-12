@@ -1,6 +1,6 @@
 /** 
  * @file crc32.c
- * @brief Function implementation for computing CRC-32 checksum
+ * @brief Function implementation for computing CRC-32 checksum for AVR MCUs.
  * @author Nguyen Trong Phuong (aka trongphuongpro)
  * @date 2019 Dec 28
  */
@@ -82,6 +82,21 @@ crc32_t crc32_compute(const void *data, uint32_t len) {
 	}
 	
 	return ~remainder;
+}
+
+
+crc32_t crc32_concat(crc32_t checksum, const void* data, uint32_t len) {
+	uint8_t *msg = (uint8_t*)data;
+	crc32_t hash;
+	checksum = ~checksum;
+	
+	for (uint32_t i = 0; i < len; i++) {
+		// read hash value from Program Memory
+		hash = pgm_read_dword(crc32Table + (msg[i] ^ (checksum & 0xFF)));
+		checksum = hash ^ (checksum >> 8);
+	}
+
+	return ~checksum;
 }
 
 

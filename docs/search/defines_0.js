@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['crc32poly_79',['CRC32POLY',['../crc32_8h.html#a9e13892a1d12dd94447908d840a1d364',1,'crc32.h']]],
-  ['crc32poly_5freverse_80',['CRC32POLY_REVERSE',['../crc32_8h.html#a634fca329a19af519544b2cd50761f74',1,'crc32.h']]]
+  ['message_5fmax_5fpayload_5fsize_119',['MESSAGE_MAX_PAYLOAD_SIZE',['../message_8h.html#ab780b9319a3053847d1728617ffeeabb',1,'message.h']]],
+  ['message_5fpreamble_5fsize_120',['MESSAGE_PREAMBLE_SIZE',['../uart__message__atmega_8c.html#a98382c952465707b612c0367a9645ea4',1,'uart_message_atmega.c']]]
 ];

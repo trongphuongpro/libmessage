@@ -14,7 +14,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <avr/interrupt.h>
-#include <util/delay.h>
 #include "message.h"
 #include "ringbuffer.h"
 #include "uart.h"
@@ -24,12 +23,15 @@
  */	
 #define MESSAGE_PREAMBLE_SIZE	4
 
-enum steps {	parsingPreamble=0, /**< 0 */
-				parsingAddress, /**< 1 */
-				parsingSize, /**< 2 */
-				parsingPayload, /**< 3 */
-				parsingChecksum /**< 4 */
+
+enum steps {	parsingPreamble=0,
+				parsingAddress,
+				parsingSize,
+				parsingPayload,
+				parsingChecksum,
+				verifyingChecksum
 };
+
 
 /** 
  * @brief Struct contains message frame
@@ -44,13 +46,13 @@ struct MessageFrame {
 
 typedef struct MessageFrame* MessageFrame_t;
 
+
 static void createFrame(const void*, uint8_t, uint8_t, const void*, uint8_t);
 static void parsePreamble(void);
 static void parseAddress(void);
 static void parseSize(void);
 static void parsePayload(void);
 static void parseChecksum(void);
-
 static int verifyChecksum(void);
 
 static Message_t extractMessage(MessageFrame_t);
@@ -217,12 +219,7 @@ static void parseSize() {
 			rxFrame->payloadSize = MESSAGE_MAX_PAYLOAD_SIZE;
 		}
 
-		printf("\nRAM free: %d bytes.\n", SP - ((uint16_t)(__brkval == 0) ? 
-								(uint16_t)&__bss_end : (uint16_t)__brkval));
-		printf(">> new payload");
 		rxFrame->payload = calloc(rxFrame->payloadSize, sizeof(uint8_t));
-		printf("\nRAM free: %d bytes.\n", SP - ((uint16_t)(__brkval == 0) ? 
-								(uint16_t)&__bss_end : (uint16_t)__brkval));
 
 		currentStep = parsingPayload;
 	}
@@ -251,25 +248,20 @@ static void parseChecksum() {
 
 		if (counter == sizeof(crc32_t)) {
 			counter = 0;
+			currentStep = verifyingChecksum;
 
 			if (verifyChecksum() == 0) {
-
 				if (!ringbuffer_isFull(frameBuffer)) {
 					ringbuffer_push(frameBuffer, extractMessage(rxFrame));
 				}
+			}
 
-				/**
-		 		 * free memore allocated for payload
-		 		 */
-				printf("\nRAM free: %d bytes.\n", SP - ((uint16_t)(__brkval == 0) ? 
-									(uint16_t)&__bss_end : (uint16_t)__brkval));
-				printf(">> free payload");
-				free(rxFrame->payload);
-				printf("\nRAM free: %d bytes.\n", SP - ((uint16_t)(__brkval == 0) ? 
-									(uint16_t)&__bss_end : (uint16_t)__brkval));
+			/**
+	 		 * free memore allocated for payload
+	 		 */
+			free(rxFrame->payload);
 
-				}
-				currentStep = parsingPreamble;
+			currentStep = parsingPreamble;
 		}
 	}
 }
@@ -293,17 +285,11 @@ int verifyChecksum() {
 
 
 Message_t extractMessage(MessageFrame_t frame) {
-	printf("\nRAM free: %d bytes.\n", SP - ((uint16_t)(__brkval == 0) ? 
-								(uint16_t)&__bss_end : (uint16_t)__brkval));
-	printf(">> new message");
 	Message_t message = calloc(1, sizeof(struct Message));
 
 	message->address = frame->address[1];
 	message->payloadSize = frame->payloadSize;
 	message->payload = calloc(message->payloadSize, sizeof(uint8_t));
-
-	printf("\nRAM free: %d bytes.\n", SP - ((uint16_t)(__brkval == 0) ? 
-								(uint16_t)&__bss_end : (uint16_t)__brkval));
 
 	memcpy(message->payload, frame->payload, message->payloadSize);
 
@@ -327,5 +313,7 @@ uint8_t messagebox_getFreeSpace(MessageBox_t buffer) {
 
 
 ISR(USART_RX_vect) {
-	callback[currentStep]();
+	if (currentStep < verifyingChecksum) {
+		callback[currentStep]();
+	}
 }
