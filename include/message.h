@@ -43,22 +43,23 @@ typedef enum steps steps;
  */
 typedef struct MessageBox* MessageBox_t;
 
+
+/** 
+ * @brief Struct contains message payload
+ */  
+typedef struct Message {
+	uint8_t address; /**< @brief destination and source address: 2 bytes*/
+	uint8_t payloadSize; /**< @brief size of payload: 1 byte */
+	uint8_t *payload; /**< @brief payload */
+} __attribute__((packed)) Message;
+
+
 /**
  * @brief Abstract datatype of struct Message.
  *
  * User can use it w/o the knowledge about struct Message.
  */
-typedef struct Message* Message_t;
-
-
-/** 
- * @brief Struct contains message payload
- */  
-struct Message {
-	uint8_t address; /**< @brief destination and source address: 2 bytes*/
-	uint8_t payloadSize; /**< @brief size of payload: 1 byte */
-	uint8_t *payload; /**< @brief payload */
-} __attribute__((packed));
+typedef Message* Message_t;
 
 
 /** 

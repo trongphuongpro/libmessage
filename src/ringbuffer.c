@@ -16,19 +16,19 @@
 /** 
  * @brief Struct contains FIFO buffer containing received messages.
  */ 
-struct MessageBox {
+typedef struct MessageBox {
 	Message_t *data; /**< @brief Array of pointers to messages */
 	uint8_t readPoint; /**< @brief Reading point */
 	uint8_t writePoint; /**< @brief Writting point */
 	uint8_t capacity; /**< @brief The capacity of FIFO buffer */
 	bool isFull; /**< @brief State of buffer, full or not */
-} __attribute__((packed));
+} __attribute__((packed)) MessageBox;
 
 
 MessageBox_t ringbuffer_create(uint8_t num) {
 	assert(num);
 
-	MessageBox_t newbuffer = (MessageBox_t)malloc(sizeof(struct MessageBox));
+	MessageBox_t newbuffer = (MessageBox_t)malloc(sizeof(MessageBox));
 	assert(newbuffer);
 
 	newbuffer->data = calloc(num, sizeof(Message_t*));
@@ -56,7 +56,7 @@ void ringbuffer_destroy(MessageBox_t buffer) {
 
 
 void ringbuffer_clear(MessageBox_t buffer) {
-	Message_t dust = calloc(1, sizeof(struct Message));
+	Message_t dust = calloc(1, sizeof(Message));
 	dust->payload = calloc(MESSAGE_MAX_PAYLOAD_SIZE, 1);
 
 	// Remove all data until empty

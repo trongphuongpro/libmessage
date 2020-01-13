@@ -37,15 +37,15 @@ enum steps {	parsingPreamble=0,
 /** 
  * @brief Struct contains message frame
  */  
-struct MessageFrame {
+typedef struct MessageFrame {
 	uint8_t preamble[MESSAGE_PREAMBLE_SIZE]; /**< @brief preamble of message frame */
 	uint8_t address[2]; /**< @brief destination and source address: 2 bytes*/
 	uint8_t payloadSize; /**< @brief size of payload: 1 byte */
 	uint8_t *payload; /**< @brief payload */
 	crc32_t checksum; /**< @brief CRC-32 checksum: 4 bytes */
-} __attribute__((packed));
+} __attribute__((packed)) MessageFrame;
 
-typedef struct MessageFrame* MessageFrame_t;
+typedef MessageFrame* MessageFrame_t;
 
 
 static void createFrame(const void*, uint8_t, uint8_t, const void*, uint8_t);
@@ -81,8 +81,8 @@ MessageBox_t uart_messagebox_create(uint32_t baudrate, uint8_t num) {
 
 	frameBuffer = ringbuffer_create(num);
 
-	rxFrame = calloc(1, sizeof(struct MessageFrame));
-	txFrame = calloc(1, sizeof(struct MessageFrame));
+	rxFrame = calloc(1, sizeof(MessageFrame));
+	txFrame = calloc(1, sizeof(MessageFrame));
 
 	sei();
 
@@ -134,10 +134,11 @@ static void createFrame(	const void* _preamble,
 	}
 
 	// CHECKSUM CRC32
-	crc32_t checksum = crc32_compute(&txFrame, sizeof(txFrame->preamble) 
+	crc32_t checksum = crc32_concat(crc32_compute(txFrame, 
+											sizeof(txFrame->preamble) 
 											+ sizeof(txFrame->address) 
-											+ sizeof(txFrame->payloadSize)
-											+ txFrame->payloadSize);
+											+ sizeof(txFrame->payloadSize)),
+								txFrame->payload, txFrame->payloadSize);
 
 	txFrame->checksum = checksum;
 }
@@ -285,7 +286,7 @@ int verifyChecksum() {
 
 
 Message_t extractMessage(MessageFrame_t frame) {
-	Message_t message = calloc(1, sizeof(struct Message));
+	Message_t message = calloc(1, sizeof(Message));
 
 	message->address = frame->address[1];
 	message->payloadSize = frame->payloadSize;
