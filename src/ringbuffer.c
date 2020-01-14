@@ -56,16 +56,15 @@ void ringbuffer_destroy(MessageBox_t buffer) {
 
 
 void ringbuffer_clear(MessageBox_t buffer) {
-	Message_t dust = calloc(1, sizeof(Message));
-	dust->payload = calloc(MESSAGE_MAX_PAYLOAD_SIZE, 1);
+	Message dump;
+	dump.payload = calloc(MESSAGE_MAX_PAYLOAD_SIZE, 1);
 
 	// Remove all data until empty
 	while (!ringbuffer_isEmpty(buffer)) {
-		ringbuffer_pop(buffer, dust);
+		ringbuffer_pop(buffer, &dump);
 	}
 
-	free(dust->payload);
-	free(dust);
+	free(dump.payload);
 }
 
 
