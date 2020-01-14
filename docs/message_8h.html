@@ -105,9 +105,13 @@ typedef enum steps&#160;</td><td class="memItemRight" valign="bottom"><a class="
 <tr class="memitem:a7d0d58467daea3235cf7cbc927941069"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structMessageBox.html">MessageBox</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="message_8h.html#a7d0d58467daea3235cf7cbc927941069">MessageBox_t</a></td></tr>
 <tr class="memdesc:a7d0d58467daea3235cf7cbc927941069"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract datatype of struct <a class="el" href="structMessageBox.html" title="Struct contains FIFO buffer containing received messages.">MessageBox</a>.  <a href="message_8h.html#a7d0d58467daea3235cf7cbc927941069">More...</a><br /></td></tr>
 <tr class="separator:a7d0d58467daea3235cf7cbc927941069"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ffb55238d6850054840db8ab1508ea3"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structMessage.html">Message</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="message_8h.html#a0ffb55238d6850054840db8ab1508ea3">Message_t</a></td></tr>
-<tr class="memdesc:a0ffb55238d6850054840db8ab1508ea3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract datatype of struct <a class="el" href="structMessage.html" title="Struct contains message payload.">Message</a>.  <a href="message_8h.html#a0ffb55238d6850054840db8ab1508ea3">More...</a><br /></td></tr>
-<tr class="separator:a0ffb55238d6850054840db8ab1508ea3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a763a3bcd72c2b614b26318d84d99e860"><td class="memItemLeft" align="right" valign="top"><a id="a763a3bcd72c2b614b26318d84d99e860"></a>
+typedef struct <a class="el" href="structMessage.html">Message</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="message_8h.html#a763a3bcd72c2b614b26318d84d99e860">Message</a></td></tr>
+<tr class="memdesc:a763a3bcd72c2b614b26318d84d99e860"><td class="mdescLeft">&#160;</td><td class="mdescRight">Struct contains message payload. <br /></td></tr>
+<tr class="separator:a763a3bcd72c2b614b26318d84d99e860"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af75ba718f989d8ed0d0c5419d9fa0123"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="structMessage.html">Message</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="message_8h.html#af75ba718f989d8ed0d0c5419d9fa0123">Message_t</a></td></tr>
+<tr class="memdesc:af75ba718f989d8ed0d0c5419d9fa0123"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract datatype of struct <a class="el" href="structMessage.html" title="Struct contains message payload.">Message</a>.  <a href="message_8h.html#af75ba718f989d8ed0d0c5419d9fa0123">More...</a><br /></td></tr>
+<tr class="separator:af75ba718f989d8ed0d0c5419d9fa0123"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -126,7 +130,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a36932ecff94fa7fd9cb03319ce95077f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="message_8h.html#a36932ecff94fa7fd9cb03319ce95077f">messagebox_isAvailable</a> (<a class="el" href="message_8h.html#a7d0d58467daea3235cf7cbc927941069">MessageBox_t</a> buffer)</td></tr>
 <tr class="memdesc:a36932ecff94fa7fd9cb03319ce95077f"><td class="mdescLeft">&#160;</td><td class="mdescRight">check if new message is available in <a class="el" href="structMessage.html" title="Struct contains message payload.">Message</a> Box  <a href="message_8h.html#a36932ecff94fa7fd9cb03319ce95077f">More...</a><br /></td></tr>
 <tr class="separator:a36932ecff94fa7fd9cb03319ce95077f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf3a59cb685a9d329119dccde7f3eed7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="message_8h.html#acf3a59cb685a9d329119dccde7f3eed7">messagebox_pop</a> (<a class="el" href="message_8h.html#a7d0d58467daea3235cf7cbc927941069">MessageBox_t</a> buffer, <a class="el" href="message_8h.html#a0ffb55238d6850054840db8ab1508ea3">Message_t</a> message)</td></tr>
+<tr class="memitem:acf3a59cb685a9d329119dccde7f3eed7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="message_8h.html#acf3a59cb685a9d329119dccde7f3eed7">messagebox_pop</a> (<a class="el" href="message_8h.html#a7d0d58467daea3235cf7cbc927941069">MessageBox_t</a> buffer, <a class="el" href="message_8h.html#af75ba718f989d8ed0d0c5419d9fa0123">Message_t</a> message)</td></tr>
 <tr class="memdesc:acf3a59cb685a9d329119dccde7f3eed7"><td class="mdescLeft">&#160;</td><td class="mdescRight">pop a message from <a class="el" href="structMessage.html" title="Struct contains message payload.">Message</a> Box  <a href="message_8h.html#acf3a59cb685a9d329119dccde7f3eed7">More...</a><br /></td></tr>
 <tr class="separator:acf3a59cb685a9d329119dccde7f3eed7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a136e0dce6aa0f6e3d5210f9543252327"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="message_8h.html#a136e0dce6aa0f6e3d5210f9543252327">messagebox_getCapacity</a> (<a class="el" href="message_8h.html#a7d0d58467daea3235cf7cbc927941069">MessageBox_t</a> buffer)</td></tr>
@@ -153,14 +157,14 @@ volatile <a class="el" href="message_8h.html#af9de1b8ab1264b7942bfd92e079626a0">
 <dl class="section author"><dt>Author</dt><dd>Nguyen Trong Phuong (aka trongphuongpro) </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>December 28, 2019 </dd></dl>
 </div><h2 class="groupheader">Typedef Documentation</h2>
-<a id="a0ffb55238d6850054840db8ab1508ea3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0ffb55238d6850054840db8ab1508ea3">&#9670;&nbsp;</a></span>Message_t</h2>
+<a id="af75ba718f989d8ed0d0c5419d9fa0123"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af75ba718f989d8ed0d0c5419d9fa0123">&#9670;&nbsp;</a></span>Message_t</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef struct <a class="el" href="structMessage.html">Message</a>* <a class="el" href="message_8h.html#a0ffb55238d6850054840db8ab1508ea3">Message_t</a></td>
+          <td class="memname">typedef <a class="el" href="structMessage.html">Message</a>* <a class="el" href="message_8h.html#af75ba718f989d8ed0d0c5419d9fa0123">Message_t</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -333,7 +337,7 @@ volatile <a class="el" href="message_8h.html#af9de1b8ab1264b7942bfd92e079626a0">
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="message_8h.html#a0ffb55238d6850054840db8ab1508ea3">Message_t</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="message_8h.html#af75ba718f989d8ed0d0c5419d9fa0123">Message_t</a>&#160;</td>
           <td class="paramname"><em>message</em>&#160;</td>
         </tr>
         <tr>

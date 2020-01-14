@@ -67,6 +67,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">ringbuffer.c File Reference</div>  </div>
@@ -87,6 +88,13 @@ Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMessageBox.html">MessageBox</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Struct contains FIFO buffer containing received messages.  <a href="structMessageBox.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a138c45587fc1c4e03ba093053e0186d2"><td class="memItemLeft" align="right" valign="top"><a id="a138c45587fc1c4e03ba093053e0186d2"></a>
+typedef struct <a class="el" href="structMessageBox.html">MessageBox</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ringbuffer_8c.html#a138c45587fc1c4e03ba093053e0186d2">MessageBox</a></td></tr>
+<tr class="memdesc:a138c45587fc1c4e03ba093053e0186d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Struct contains FIFO buffer containing received messages. <br /></td></tr>
+<tr class="separator:a138c45587fc1c4e03ba093053e0186d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -114,10 +122,10 @@ Functions</h2></td></tr>
 <tr class="memitem:afed213219c635f3ae412a6f406a47eaf"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ringbuffer_8c.html#afed213219c635f3ae412a6f406a47eaf">ringbuffer_getFreeSpace</a> (<a class="el" href="message_8h.html#a7d0d58467daea3235cf7cbc927941069">MessageBox_t</a> buffer)</td></tr>
 <tr class="memdesc:afed213219c635f3ae412a6f406a47eaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the free space of ring buffer.  <a href="ringbuffer_8c.html#afed213219c635f3ae412a6f406a47eaf">More...</a><br /></td></tr>
 <tr class="separator:afed213219c635f3ae412a6f406a47eaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea53bd14d58be8265f0cf4d09fcb95db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ringbuffer_8c.html#aea53bd14d58be8265f0cf4d09fcb95db">ringbuffer_push</a> (<a class="el" href="message_8h.html#a7d0d58467daea3235cf7cbc927941069">MessageBox_t</a> buffer, <a class="el" href="message_8h.html#a0ffb55238d6850054840db8ab1508ea3">Message_t</a> data)</td></tr>
+<tr class="memitem:aea53bd14d58be8265f0cf4d09fcb95db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ringbuffer_8c.html#aea53bd14d58be8265f0cf4d09fcb95db">ringbuffer_push</a> (<a class="el" href="message_8h.html#a7d0d58467daea3235cf7cbc927941069">MessageBox_t</a> buffer, <a class="el" href="message_8h.html#af75ba718f989d8ed0d0c5419d9fa0123">Message_t</a> data)</td></tr>
 <tr class="memdesc:aea53bd14d58be8265f0cf4d09fcb95db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Push new message to ring buffer.  <a href="ringbuffer_8c.html#aea53bd14d58be8265f0cf4d09fcb95db">More...</a><br /></td></tr>
 <tr class="separator:aea53bd14d58be8265f0cf4d09fcb95db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a4b8aebba43a17dcc56069f3d931fa1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ringbuffer_8c.html#a3a4b8aebba43a17dcc56069f3d931fa1">ringbuffer_pop</a> (<a class="el" href="message_8h.html#a7d0d58467daea3235cf7cbc927941069">MessageBox_t</a> buffer, <a class="el" href="message_8h.html#a0ffb55238d6850054840db8ab1508ea3">Message_t</a> data)</td></tr>
+<tr class="memitem:a3a4b8aebba43a17dcc56069f3d931fa1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ringbuffer_8c.html#a3a4b8aebba43a17dcc56069f3d931fa1">ringbuffer_pop</a> (<a class="el" href="message_8h.html#a7d0d58467daea3235cf7cbc927941069">MessageBox_t</a> buffer, <a class="el" href="message_8h.html#af75ba718f989d8ed0d0c5419d9fa0123">Message_t</a> data)</td></tr>
 <tr class="memdesc:a3a4b8aebba43a17dcc56069f3d931fa1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pop a message from ring buffer.  <a href="ringbuffer_8c.html#a3a4b8aebba43a17dcc56069f3d931fa1">More...</a><br /></td></tr>
 <tr class="separator:a3a4b8aebba43a17dcc56069f3d931fa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -358,7 +366,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="message_8h.html#a0ffb55238d6850054840db8ab1508ea3">Message_t</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="message_8h.html#af75ba718f989d8ed0d0c5419d9fa0123">Message_t</a>&#160;</td>
           <td class="paramname"><em>message</em>&#160;</td>
         </tr>
         <tr>
@@ -398,7 +406,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="message_8h.html#a0ffb55238d6850054840db8ab1508ea3">Message_t</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="message_8h.html#af75ba718f989d8ed0d0c5419d9fa0123">Message_t</a>&#160;</td>
           <td class="paramname"><em>message</em>&#160;</td>
         </tr>
         <tr>

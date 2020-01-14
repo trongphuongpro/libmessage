@@ -10,7 +10,6 @@
  */
 
 
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <avr/interrupt.h>
@@ -124,7 +123,8 @@ static void createFrame(	const void* _preamble,
 	txFrame->address[1] = src;
 
 	// PAYLOAD SIZE
-	txFrame->payloadSize = (len > MESSAGE_MAX_PAYLOAD_SIZE) ? MESSAGE_MAX_PAYLOAD_SIZE : len;
+	txFrame->payloadSize = (len > MESSAGE_MAX_PAYLOAD_SIZE) ? 
+							MESSAGE_MAX_PAYLOAD_SIZE : len;
 
 	// PAYLOAD
 	txFrame->payload = calloc(txFrame->payloadSize, sizeof(uint8_t));

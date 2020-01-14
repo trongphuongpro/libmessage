@@ -79,8 +79,7 @@ $(function() {
 
 <p>Implementations for message protocol.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
-<code>#include &lt;stdlib.h&gt;</code><br />
+<div class="textblock"><code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &lt;string.h&gt;</code><br />
 <code>#include &lt;avr/interrupt.h&gt;</code><br />
 <code>#include &lt;util/delay.h&gt;</code><br />
@@ -103,9 +102,13 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a91fc9df6f96f3ae7ba10e4663f033fb0"><td class="memItemLeft" align="right" valign="top"><a id="a91fc9df6f96f3ae7ba10e4663f033fb0"></a>
-typedef struct <a class="el" href="structMessageFrame.html">MessageFrame</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>MessageFrame_t</b></td></tr>
-<tr class="separator:a91fc9df6f96f3ae7ba10e4663f033fb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f4a78844a44c80f7a036af906babb0e"><td class="memItemLeft" align="right" valign="top"><a id="a2f4a78844a44c80f7a036af906babb0e"></a>
+typedef struct <a class="el" href="structMessageFrame.html">MessageFrame</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="uart__message__atmega_8c.html#a2f4a78844a44c80f7a036af906babb0e">MessageFrame</a></td></tr>
+<tr class="memdesc:a2f4a78844a44c80f7a036af906babb0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Struct contains message frame. <br /></td></tr>
+<tr class="separator:a2f4a78844a44c80f7a036af906babb0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02a32926772d5da46b342b4e2c064d36"><td class="memItemLeft" align="right" valign="top"><a id="a02a32926772d5da46b342b4e2c064d36"></a>
+typedef <a class="el" href="structMessageFrame.html">MessageFrame</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>MessageFrame_t</b></td></tr>
+<tr class="separator:a02a32926772d5da46b342b4e2c064d36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aafc97c9417b4f18848dfae495c35f6d4"><td class="memItemLeft" align="right" valign="top"><a id="aafc97c9417b4f18848dfae495c35f6d4"></a>
 typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><b>callbacktype</b>) (void)</td></tr>
 <tr class="separator:aafc97c9417b4f18848dfae495c35f6d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -141,7 +144,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a36932ecff94fa7fd9cb03319ce95077f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="uart__message__atmega_8c.html#a36932ecff94fa7fd9cb03319ce95077f">messagebox_isAvailable</a> (<a class="el" href="message_8h.html#a7d0d58467daea3235cf7cbc927941069">MessageBox_t</a> buffer)</td></tr>
 <tr class="memdesc:a36932ecff94fa7fd9cb03319ce95077f"><td class="mdescLeft">&#160;</td><td class="mdescRight">check if new message is available in <a class="el" href="structMessage.html" title="Struct contains message payload.">Message</a> Box  <a href="uart__message__atmega_8c.html#a36932ecff94fa7fd9cb03319ce95077f">More...</a><br /></td></tr>
 <tr class="separator:a36932ecff94fa7fd9cb03319ce95077f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3696bf78a0092524e4fc5e8467cffe77"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="uart__message__atmega_8c.html#a3696bf78a0092524e4fc5e8467cffe77">messagebox_pop</a> (<a class="el" href="message_8h.html#a7d0d58467daea3235cf7cbc927941069">MessageBox_t</a> buffer, <a class="el" href="message_8h.html#a0ffb55238d6850054840db8ab1508ea3">Message_t</a> data)</td></tr>
+<tr class="memitem:a3696bf78a0092524e4fc5e8467cffe77"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="uart__message__atmega_8c.html#a3696bf78a0092524e4fc5e8467cffe77">messagebox_pop</a> (<a class="el" href="message_8h.html#a7d0d58467daea3235cf7cbc927941069">MessageBox_t</a> buffer, <a class="el" href="message_8h.html#af75ba718f989d8ed0d0c5419d9fa0123">Message_t</a> data)</td></tr>
 <tr class="memdesc:a3696bf78a0092524e4fc5e8467cffe77"><td class="mdescLeft">&#160;</td><td class="mdescRight">pop a message from <a class="el" href="structMessage.html" title="Struct contains message payload.">Message</a> Box  <a href="uart__message__atmega_8c.html#a3696bf78a0092524e4fc5e8467cffe77">More...</a><br /></td></tr>
 <tr class="separator:a3696bf78a0092524e4fc5e8467cffe77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a136e0dce6aa0f6e3d5210f9543252327"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="uart__message__atmega_8c.html#a136e0dce6aa0f6e3d5210f9543252327">messagebox_getCapacity</a> (<a class="el" href="message_8h.html#a7d0d58467daea3235cf7cbc927941069">MessageBox_t</a> buffer)</td></tr>
@@ -315,7 +318,7 @@ volatile <a class="el" href="message_8h.html#af9de1b8ab1264b7942bfd92e079626a0">
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="message_8h.html#a0ffb55238d6850054840db8ab1508ea3">Message_t</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="message_8h.html#af75ba718f989d8ed0d0c5419d9fa0123">Message_t</a>&#160;</td>
           <td class="paramname"><em>message</em>&#160;</td>
         </tr>
         <tr>
