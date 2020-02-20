@@ -152,11 +152,11 @@ void messagebox_send(	const void* _preamble,
 {
 	createFrame(_preamble, des, src, _data, len);
 
-	uart_writeBuffer(txFrame->preamble, 4);
-	uart_writeBuffer(txFrame->address, 2);
-	uart_write(txFrame->payloadSize);
-	uart_writeBuffer(txFrame->payload, txFrame->payloadSize);
-	uart_writeBuffer(&txFrame->checksum, sizeof(crc32_t));
+	uart_sendBuffer(txFrame->preamble, 4);
+	uart_sendBuffer(txFrame->address, 2);
+	uart_send(txFrame->payloadSize);
+	uart_sendBuffer(txFrame->payload, txFrame->payloadSize);
+	uart_sendBuffer(&txFrame->checksum, sizeof(crc32_t));
 
 	/**
 	 * free memore allocated for payload

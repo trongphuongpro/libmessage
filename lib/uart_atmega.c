@@ -34,7 +34,7 @@ void uart_open(uint32_t baudrate) {
 }
 
 
-void uart_write(uint8_t data) {
+void uart_send(uint8_t data) {
 	while (!(UCSR0A & (1 << UDRE0))) {
 		// wait
 	}
@@ -42,24 +42,24 @@ void uart_write(uint8_t data) {
 }
 
 
-void uart_writeBuffer(const void* buffer, uint32_t len) {
+void uart_sendBuffer(const void* buffer, uint32_t len) {
 	const uint8_t *data = (uint8_t*)buffer;
 
 	for (uint8_t i = 0; i < len; i++) {
-		uart_write(data[i]);
+		uart_send(data[i]);
 	}
 }
 
 
 void uart_putchar(char c) {
 	if (c == '\n') {
-		uart_write('\r');
+		uart_send('\r');
 	}
 
-	uart_write(c);
+	uart_send(c);
 
 	if (c == '\r') {
-		uart_write('\n');
+		uart_send('\n');
 	}
 }
 
@@ -71,7 +71,7 @@ void uart_print(const char* buffer) {
 }
 
 
-uint8_t uart_read() {
+uint8_t uart_receive() {
 	while (!(UCSR0A & (1 << RXC0))) {
 		// wait
 	}
@@ -80,7 +80,7 @@ uint8_t uart_read() {
 
 
 char uart_getchar() {
-	return uart_read();
+	return uart_receive();
 }
 
 
@@ -101,18 +101,16 @@ static int uart_putchar_io(char c, FILE *stream) {
 
 
 /*static int uart_getchar_io(FILE *stream) {
-	char c = uart_read();
+	char c = uart_receive();
 	uart_putchar(c);
 
 	return c;
 }*/
 
 
-/*#ifndef __MESSAGE__
-
+/*
 ISR(USART_RX_vect) {
 
 	// something here
 }
-
-#endif*/
+*/

@@ -7,7 +7,6 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include <avr/io.h>
 #include <avr/pgmspace.h>
 #include "crc32.h"
 

@@ -30,7 +30,7 @@ void uart_open(uint32_t baudrate);
  * @param data one byte data.
  * @return nothing.
  */
-void uart_write(uint8_t data);
+void uart_send(uint8_t data);
 
 
 /**
@@ -39,13 +39,13 @@ void uart_write(uint8_t data);
  * @param len the length of data in byte.
  * @return nothing.
  */
-void uart_writeBuffer(const void* data, uint32_t len);
+void uart_sendBuffer(const void* data, uint32_t len);
 
 
 /**
  * @brief print one character to UART terminal
  *
- * character '\\n' or '\\r' will be converted to '\\r\\n'
+ * character '\\n' or '\r' will be converted to '\r\\n'
  *
  * @param data one byte data.
  * @return nothing.
@@ -66,7 +66,7 @@ void uart_print(const char* string);
  * @brief get one byte from UART bus
  * @return one byte.
  */
-uint8_t uart_read(void);
+uint8_t uart_receive(void);
 
 
 /** 
