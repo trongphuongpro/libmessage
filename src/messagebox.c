@@ -1,6 +1,6 @@
 /** 
  * @file messagebox.c
- * @brief Implementation for creating ring buffer for embedded systems
+ * @brief Implementation for creating ring box for embedded systems
  * @author Nguyen Trong Phuong (aka trongphuongpro)
  * @date January 6, 2020
  */
@@ -28,52 +28,52 @@ void messagebox_create(MessageBox *box, Message *data, uint8_t num) {
 }
 
 
-void messagebox_clear(MessageBox_t buffer) {
+void messagebox_clear(MessageBox* box) {
 	Message dump;
 
-	while (!messagebox_isEmpty(buffer)) {
-		messagebox_pop(buffer, &dump);
+	while (!messagebox_isEmpty(box)) {
+		messagebox_pop(box, &dump);
 	}
 }
 
 
-bool messagebox_isAvailable(MessageBox_t buffer) {
-	return !messagebox_isEmpty(buffer);
+bool messagebox_isAvailable(MessageBox* box) {
+	return !messagebox_isEmpty(box);
 }
 
 
-bool messagebox_isEmpty(MessageBox_t buffer) {
-	assert(buffer);
+bool messagebox_isEmpty(MessageBox* box) {
+	assert(box);
 
-	return (!buffer->isFull && (buffer->readPoint == buffer->writePoint));
+	return (!box->isFull && (box->readPoint == box->writePoint));
 }
 
 
-bool messagebox_isFull(MessageBox_t buffer) {
-	assert(buffer);
+bool messagebox_isFull(MessageBox* box) {
+	assert(box);
 
-	return buffer->isFull;
+	return box->isFull;
 }
 
 
-uint8_t messagebox_getCapacity(MessageBox_t buffer) {
-	assert(buffer);
+uint8_t messagebox_getCapacity(MessageBox* box) {
+	assert(box);
 
-	return buffer->capacity;
+	return box->capacity;
 }
 
 
-uint8_t messagebox_getUsedSpace(MessageBox_t buffer) {
-	assert(buffer);
+uint8_t messagebox_getUsedSpace(MessageBox* box) {
+	assert(box);
 
-	uint8_t number = buffer->capacity;
+	uint8_t number = box->capacity;
 
-	if (!buffer->isFull) {
-		if (buffer->readPoint <= buffer->writePoint) {
-			number = buffer->writePoint - buffer->readPoint;
+	if (!box->isFull) {
+		if (box->readPoint <= box->writePoint) {
+			number = box->writePoint - box->readPoint;
 		}
 		else {
-			number -= buffer->readPoint - buffer->writePoint;
+			number -= box->readPoint - box->writePoint;
 		}
 	}
 
@@ -81,58 +81,58 @@ uint8_t messagebox_getUsedSpace(MessageBox_t buffer) {
 }
 
 
-uint8_t messagebox_getFreeSpace(MessageBox_t buffer) {
-	return messagebox_getCapacity(buffer) - messagebox_getUsedSpace(buffer);
+uint8_t messagebox_getFreeSpace(MessageBox* box) {
+	return messagebox_getCapacity(box) - messagebox_getUsedSpace(box);
 }
 
 
-/*void increase_checkpoints(MessageBox_t buffer) {
-	assert(buffer);
+/*void increase_checkpoints(MessageBox* box) {
+	assert(box);
 
-	if (buffer->isFull) {
-		buffer->readPoint = (buffer->readPoint + 1) % buffer->capacity;
+	if (box->isFull) {
+		box->readPoint = (box->readPoint + 1) % box->capacity;
 	}
 
-	buffer->writePoint = (buffer->writePoint + 1) % buffer->capacity;
-	buffer->isFull = (buffer->readPoint == buffer->writePoint);
+	box->writePoint = (box->writePoint + 1) % box->capacity;
+	box->isFull = (box->readPoint == box->writePoint);
 }
 
 
-void decrease_checkpoints(MessageBox_t buffer) {
-	assert(buffer);
+void decrease_checkpoints(MessageBox* box) {
+	assert(box);
 
-	buffer->readPoint = (buffer->readPoint + 1) % buffer->capacity;
-	buffer->isFull = false;
+	box->readPoint = (box->readPoint + 1) % box->capacity;
+	box->isFull = false;
 }*/
 
 
-void messagebox_push(MessageBox_t buffer, Message data) {
-	assert(buffer && buffer->data);
+void messagebox_push(MessageBox* box, Message data) {
+	assert(box && box->data);
 
-	if (!buffer->isFull) {
-		buffer->data[buffer->writePoint] = data;
+	if (!box->isFull) {
+		box->data[box->writePoint] = data;
 
-		buffer->writePoint = (buffer->writePoint + 1) % buffer->capacity;
-		buffer->isFull = (buffer->readPoint == buffer->writePoint);
+		box->writePoint = (box->writePoint + 1) % box->capacity;
+		box->isFull = (box->readPoint == box->writePoint);
 	}
 }
 
 
-int messagebox_pop(MessageBox_t buffer, Message_t data) {
-	assert(buffer && buffer->data && data);
+int messagebox_pop(MessageBox* box, Message *data) {
+	assert(box && box->data && data);
 
 	int ret = -1;
 
-	if (!messagebox_isEmpty(buffer)) {
-		data->address = buffer->data[buffer->readPoint].address;
-		data->payloadSize = buffer->data[buffer->readPoint].payloadSize;
-		memcpy(data->payload, buffer->data[buffer->readPoint].payload, data->payloadSize);
+	if (!messagebox_isEmpty(box)) {
+		data->address = box->data[box->readPoint].address;
+		data->payloadSize = box->data[box->readPoint].payloadSize;
+		memcpy(data->payload, box->data[box->readPoint].payload, data->payloadSize);
 
 		/**
-		 * update checkpoints after getting data into buffer
+		 * update checkpoints after getting data into box
 		 */
-		buffer->readPoint = (buffer->readPoint + 1) % buffer->capacity;
-		buffer->isFull = false;
+		box->readPoint = (box->readPoint + 1) % box->capacity;
+		box->isFull = false;
 
 		ret = 0;
 	}

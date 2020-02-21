@@ -16,9 +16,9 @@
 #include "driverlib/uart.h"
 #include "driverlib/sysctl.h"
 #include "message.h"
-#include "ringbuffer.h"
+#include "messagebox.h"
 #include "uart.h"
-
+#include "crc32.h"
 
 enum steps {	parsingPreamble=0,
 				parsingAddress,
@@ -36,7 +36,7 @@ typedef struct MessageFrame {
 	uint8_t preamble[MESSAGE_PREAMBLE_SIZE]; /**< @brief preamble of message frame */
 	uint8_t address[2]; /**< @brief destination and source address: 2 bytes*/
 	uint8_t payloadSize; /**< @brief size of payload: 1 byte */
-	uint8_t *payload; /**< @brief payload */
+	uint8_t payload[MESSAGE_MAX_PAYLOAD_SIZE]; /**< @brief payload */
 	crc32_t checksum; /**< @brief CRC-32 checksum: 4 bytes */
 } __attribute__((packed)) MessageFrame;
 
@@ -51,7 +51,7 @@ static void parsePayload(void);
 static void parseChecksum(void);
 static int verifyChecksum(void);
 
-static Message_t extractMessage(MessageFrame_t);
+static Message extractMessage(MessageFrame_t);
 
 static void ISR(void);
 
@@ -66,38 +66,34 @@ volatile steps currentStep = parsingPreamble;
 
 static uint8_t validPreamble[MESSAGE_PREAMBLE_SIZE] = {0xAA, 0xBB, 0xCC, 0xDD};
 
-static MessageFrame_t rxFrame;
-static MessageFrame_t txFrame;
-static MessageBox_t frameBuffer;
+static MessageFrame rxFrame;
+static MessageFrame txFrame;
+static MessageBox_t messageBuffer;
 static uint32_t UARTbase;
 
 
-MessageBox_t uart_messagebox_create(uint32_t uartbase, uint8_t num) {
+void uart_messagebox_create(uint32_t uartbase,
+							MessageBox_t box, 
+							Message *data,
+							uint8_t num) 
+{
 	
 	UARTbase = uartbase;
 
-	/**
-	 * Interrupt config for UART
-	 */
+	//
+	// BEGIN: Interrupt config for UART
+	//
 	UARTFIFOLevelSet(UARTbase, UART_FIFO_TX1_8, UART_FIFO_RX1_8);
 	UARTIntRegister(UARTbase, ISR);
 	UARTIntEnable(UARTbase, UART_INT_RX);
+	//
+	// END: Interrupt config for UART
+	//
 
 	uart_open(uartbase);
 
-	frameBuffer = ringbuffer_create(num);
-
-	rxFrame = calloc(1, sizeof(MessageFrame));
-	txFrame = calloc(1, sizeof(MessageFrame));
-
-	return frameBuffer;
-}
-
-
-void messagebox_destroy() {
-	ringbuffer_destroy(frameBuffer);
-	free(rxFrame);
-	free(txFrame);
+	messageBuffer = box;
+	messagebox_create(messageBuffer, data, num);
 }
 
 
@@ -120,32 +116,30 @@ static void createFrame(const void* _preamble,
 
 	// PREAMBLE
 	for (uint8_t i = 0; i < MESSAGE_PREAMBLE_SIZE; i++) {
-		txFrame->preamble[i] = preamble[i];
+		txFrame.preamble[i] = preamble[i];
 	}
 
 	// ADDRESS
-	txFrame->address[0] = des;
-	txFrame->address[1] = src;
+	txFrame.address[0] = des;
+	txFrame.address[1] = src;
 
 	// PAYLOAD SIZE
-	txFrame->payloadSize = (len > MESSAGE_MAX_PAYLOAD_SIZE) ? 
+	txFrame.payloadSize = (len > MESSAGE_MAX_PAYLOAD_SIZE) ? 
 							MESSAGE_MAX_PAYLOAD_SIZE : len;
 
 	// PAYLOAD
-	txFrame->payload = calloc(txFrame->payloadSize, sizeof(uint8_t));
-
-	for (uint8_t i = 0; i < txFrame->payloadSize; i++) {
-		txFrame->payload[i] = data[i];
+	for (uint8_t i = 0; i < txFrame.payloadSize; i++) {
+		txFrame.payload[i] = data[i];
 	}
 
 	// CHECKSUM CRC32
-	crc32_t checksum = crc32_concat(crc32_compute(txFrame, 
-											sizeof(txFrame->preamble) 
-											+ sizeof(txFrame->address) 
-											+ sizeof(txFrame->payloadSize)),
-								txFrame->payload, txFrame->payloadSize);
+	crc32_t checksum = crc32_concat(crc32_compute(&txFrame, 
+											sizeof(txFrame.preamble) 
+											+ sizeof(txFrame.address) 
+											+ sizeof(txFrame.payloadSize)),
+								txFrame.payload, txFrame.payloadSize);
 
-	txFrame->checksum = checksum;
+	txFrame.checksum = checksum;
 }
 
 
@@ -157,28 +151,14 @@ void messagebox_send(	const void* _preamble,
 {
 	createFrame(_preamble, des, src, _data, len);
 
-	uart_sendBuffer(txFrame->preamble, 4);
-	uart_sendBuffer(txFrame->address, 2);
-	uart_send(txFrame->payloadSize);
-	uart_sendBuffer(txFrame->payload, txFrame->payloadSize);
-	uart_sendBuffer(&txFrame->checksum, sizeof(crc32_t));
-
-
-	// free memore allocated for payload
-	free(txFrame->payload);
+	uart_sendBuffer(txFrame.preamble, 4);
+	uart_sendBuffer(txFrame.address, 2);
+	uart_send(txFrame.payloadSize);
+	uart_sendBuffer(txFrame.payload, txFrame.payloadSize);
+	uart_sendBuffer(&txFrame.checksum, sizeof(crc32_t));
 
 	// delay 3ms
 	SysCtlDelay(3 * SysCtlClockGet() / 1000);
-}
-
-
-bool messagebox_isAvailable(MessageBox_t buffer) {
-	return !ringbuffer_isEmpty(buffer);
-}
-
-
-int messagebox_pop(MessageBox_t buffer, Message_t data) {
-	return ringbuffer_pop(buffer, data);
 }
 
 
@@ -186,9 +166,9 @@ static void parsePreamble() {
 	if (currentStep == parsingPreamble) {
 		static int counter;
 
-		rxFrame->preamble[counter] = UARTCharGet(UARTbase);
+		rxFrame.preamble[counter] = UARTCharGet(UARTbase);
 
-		if (rxFrame->preamble[counter] == validPreamble[counter]) {
+		if (rxFrame.preamble[counter] == validPreamble[counter]) {
 			counter++;
 		}
 		else {
@@ -208,7 +188,7 @@ static void parseAddress() {
 	if (currentStep == parsingAddress) {
 		static int counter;
 
-		rxFrame->address[counter++] = UARTCharGet(UARTbase);
+		rxFrame.address[counter++] = UARTCharGet(UARTbase);
 
 		// go to next currentStep if 2-byte address is read.
 		if (counter == 2) {
@@ -221,13 +201,11 @@ static void parseAddress() {
 
 static void parseSize() {
 	if (currentStep == parsingSize) {
-		rxFrame->payloadSize = UARTCharGet(UARTbase);
+		rxFrame.payloadSize = UARTCharGet(UARTbase);
 
-		if (rxFrame->payloadSize > MESSAGE_MAX_PAYLOAD_SIZE) {
-			rxFrame->payloadSize = MESSAGE_MAX_PAYLOAD_SIZE;
+		if (rxFrame.payloadSize > MESSAGE_MAX_PAYLOAD_SIZE) {
+			rxFrame.payloadSize = MESSAGE_MAX_PAYLOAD_SIZE;
 		}
-
-		rxFrame->payload = calloc(rxFrame->payloadSize, sizeof(uint8_t));
 
 		currentStep = parsingPayload;
 	}
@@ -238,9 +216,9 @@ static void parsePayload() {
 	if (currentStep == parsingPayload) {
 		static int counter;
 
-		rxFrame->payload[counter++] = UARTCharGet(UARTbase);
+		rxFrame.payload[counter++] = UARTCharGet(UARTbase);
 
-		if (counter == rxFrame->payloadSize) {
+		if (counter == rxFrame.payloadSize) {
 			counter = 0;
 			currentStep = parsingChecksum;
 		}
@@ -252,22 +230,17 @@ static void parseChecksum() {
 	if (currentStep == parsingChecksum) {
 		static int counter;
 
-		((uint8_t*)&rxFrame->checksum)[counter++] = UARTCharGet(UARTbase);
+		((uint8_t*)&rxFrame.checksum)[counter++] = UARTCharGet(UARTbase);
 
 		if (counter == sizeof(crc32_t)) {
 			counter = 0;
 			currentStep = verifyingChecksum;
 
 			if (verifyChecksum() == 0) {
-				if (!ringbuffer_isFull(frameBuffer)) {
-					ringbuffer_push(frameBuffer, extractMessage(rxFrame));
+				if (!messagebox_isFull(messageBuffer)) {
+					messagebox_push(messageBuffer, extractMessage(&rxFrame));
 				}
 			}
-
-			/**
-	 		 * free memore allocated for payload
-	 		 */
-			free(rxFrame->payload);
 
 			currentStep = parsingPreamble;
 		}
@@ -276,13 +249,13 @@ static void parseChecksum() {
 
 
 int verifyChecksum() {
-	crc32_t ret = crc32_concat(crc32_compute(rxFrame, 
-											sizeof(rxFrame->preamble) 
-											+ sizeof(rxFrame->address) 
-											+ sizeof(rxFrame->payloadSize)),
-								rxFrame->payload, rxFrame->payloadSize);
+	crc32_t ret = crc32_concat(crc32_compute(&rxFrame, 
+											sizeof(rxFrame.preamble) 
+											+ sizeof(rxFrame.address) 
+											+ sizeof(rxFrame.payloadSize)),
+								rxFrame.payload, rxFrame.payloadSize);
 
-	if (ret == rxFrame->checksum) {
+	if (ret == rxFrame.checksum) {
 		return 0;
 	}
 	else {
@@ -291,31 +264,15 @@ int verifyChecksum() {
 }
 
 
-Message_t extractMessage(MessageFrame_t frame) {
-	Message_t message = calloc(1, sizeof(Message));
+Message extractMessage(MessageFrame_t frame) {
+	Message message;
 
-	message->address = frame->address[1];
-	message->payloadSize = frame->payloadSize;
-	message->payload = calloc(message->payloadSize, sizeof(uint8_t));
+	message.address = frame->address[1];
+	message.payloadSize = frame->payloadSize;
 
-	memcpy(message->payload, frame->payload, message->payloadSize);
+	memcpy(message.payload, frame->payload, message.payloadSize);
 
 	return message;
-}
-
-
-uint8_t messagebox_getCapacity(MessageBox_t buffer) {
-	return ringbuffer_getCapacity(buffer);
-}
-
-
-uint8_t messagebox_getUsedSpace(MessageBox_t buffer) {
-	return ringbuffer_getUsedSpace(buffer);
-}
-
-
-uint8_t messagebox_getFreeSpace(MessageBox_t buffer) {
-	return ringbuffer_getFreeSpace(buffer);
 }
 
 

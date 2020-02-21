@@ -59,14 +59,6 @@ typedef struct Message {
 } __attribute__((packed)) Message;
 
 
-/**
- * @brief Abstract datatype of struct Message.
- *
- * User can use it w/o the knowledge about struct Message.
- */
-typedef Message* Message_t;
-
-
 /** 
  * @brief global variable contains current state of procedure
  */

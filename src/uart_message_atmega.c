@@ -40,8 +40,6 @@ typedef struct MessageFrame {
 	crc32_t checksum; /**< @brief CRC-32 checksum: 4 bytes */
 } __attribute__((packed)) MessageFrame;
 
-typedef MessageFrame* MessageFrame_t;
-
 
 static void createFrame(const void*, uint8_t, uint8_t, const void*, uint8_t);
 static void parsePreamble(void);
@@ -51,7 +49,7 @@ static void parsePayload(void);
 static void parseChecksum(void);
 static int verifyChecksum(void);
 
-static Message extractMessage(MessageFrame_t);
+static Message extractMessage(MessageFrame*);
 
 
 typedef void (*callbacktype)(void);
@@ -67,13 +65,14 @@ static uint8_t validPreamble[MESSAGE_PREAMBLE_SIZE] = {0xAA, 0xBB, 0xCC, 0xDD};
 
 static MessageFrame rxFrame;
 static MessageFrame txFrame;
-static MessageBox_t messageBuffer;
+static MessageBox* messageBuffer;
 
 
 void uart_messagebox_create(uint32_t baudrate, 
-							MessageBox_t box, 
-							Message_t data,
-							uint8_t num) {
+							MessageBox* box, 
+							Message* data,
+							uint8_t num) 
+{
 	
 	uart_open(baudrate);
 	sei();
@@ -91,13 +90,13 @@ void message_setPreamble(uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4) {
 }
 
 
-static void createFrame(	const void* _preamble, 
-							uint8_t des, 
-							uint8_t src, 
-							const void* _data, 
-							uint8_t len) 
+static void createFrame(const void* __preamble, 
+						uint8_t des, 
+						uint8_t src, 
+						const void* _data, 
+						uint8_t len) 
 {
-	uint8_t* preamble = (uint8_t*)_preamble;
+	uint8_t* preamble = (uint8_t*)__preamble;
 	uint8_t* data = (uint8_t*)_data;
 
 	// PREAMBLE
@@ -249,7 +248,7 @@ int verifyChecksum() {
 }
 
 
-Message extractMessage(MessageFrame_t frame) {
+Message extractMessage(MessageFrame* frame) {
 	Message message;
 
 	message.address = frame->address[1];

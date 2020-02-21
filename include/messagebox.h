@@ -16,7 +16,6 @@ extern "C" {
 #include <stdbool.h>
 #include "message.h"
 
-
 /** 
  * @brief Struct contains FIFO buffer containing received messages.
  */ 
@@ -30,21 +29,13 @@ typedef struct MessageBox {
 
 
 /**
- * @brief Abstract datatype of struct MessageBox.
- *
- * User can use it w/o the knowledge about struct MessageBox.
- */
-typedef struct MessageBox* MessageBox_t;
-
-
-/**
  * @brief Create new ring buffer.
  * @param box pointer to MessageBox instance
  * @param data pointer to array containing data
  * @param num max number of element in buffer.
  * @return new ring buffer instance.
  */
-void messagebox_create(MessageBox_t box, Message_t data, uint8_t num);
+void messagebox_create(MessageBox* box, Message *data, uint8_t num);
 
 
 /**
@@ -54,7 +45,7 @@ void messagebox_create(MessageBox_t box, Message_t data, uint8_t num);
  * @param buffer ring buffer instance.
  * @return nothing.
  */
-void messagebox_destroy(MessageBox_t buffer);
+void messagebox_destroy(MessageBox* buffer);
 
 
 /**
@@ -62,7 +53,7 @@ void messagebox_destroy(MessageBox_t buffer);
  * @param buffer ring buffer instance.
  * @return nothing.
  */
-void messagebox_clear(MessageBox_t buffer);
+void messagebox_clear(MessageBox* buffer);
 
 
 /**
@@ -70,7 +61,7 @@ void messagebox_clear(MessageBox_t buffer);
  * @param buffer ring buffer instance.
  * @return state of ring buffer.
  */
-bool messagebox_isEmpty(MessageBox_t buffer);
+bool messagebox_isEmpty(MessageBox* buffer);
 
 
 /**
@@ -78,7 +69,7 @@ bool messagebox_isEmpty(MessageBox_t buffer);
  * @param buffer ring buffer instance.
  * @return state of ring buffer.
  */
-bool messagebox_isAvailable(MessageBox_t buffer);
+bool messagebox_isAvailable(MessageBox* buffer);
 
 
 /**
@@ -86,7 +77,7 @@ bool messagebox_isAvailable(MessageBox_t buffer);
  * @param buffer ring buffer instance.
  * @return state of ring buffer.
  */
-bool messagebox_isFull(MessageBox_t buffer);
+bool messagebox_isFull(MessageBox* buffer);
 
 
 /**
@@ -94,7 +85,7 @@ bool messagebox_isFull(MessageBox_t buffer);
  * @param buffer ring buffer instance.
  * @return the capacity of buffer
  */
-uint8_t messagebox_getCapacity(MessageBox_t buffer);
+uint8_t messagebox_getCapacity(MessageBox* buffer);
 
 
 /**
@@ -102,7 +93,7 @@ uint8_t messagebox_getCapacity(MessageBox_t buffer);
  * @param buffer ring buffer instance.
  * @return the number of used space of buffer
  */
-uint8_t messagebox_getUsedSpace(MessageBox_t buffer);
+uint8_t messagebox_getUsedSpace(MessageBox* buffer);
 
 
 /**
@@ -110,7 +101,7 @@ uint8_t messagebox_getUsedSpace(MessageBox_t buffer);
  * @param buffer ring buffer instance.
  * @return the number of free space of buffer
  */
-uint8_t messagebox_getFreeSpace(MessageBox_t buffer);
+uint8_t messagebox_getFreeSpace(MessageBox* buffer);
 
 
 /**
@@ -119,7 +110,7 @@ uint8_t messagebox_getFreeSpace(MessageBox_t buffer);
  * @param message message instance.
  * @return the number of free space of buffer
  */
-void messagebox_push(MessageBox_t buffer, Message message);
+void messagebox_push(MessageBox* buffer, Message message);
 
 
 /**
@@ -128,7 +119,7 @@ void messagebox_push(MessageBox_t buffer, Message message);
  * @param message message instance.
  * @return 0: success, -1: failed due buffer is empty.
  */
-int messagebox_pop(MessageBox_t buffer, Message_t message);
+int messagebox_pop(MessageBox* buffer, Message *message);
 
 
 #ifdef __cplusplus

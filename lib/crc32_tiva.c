@@ -5,7 +5,6 @@
  * @date 2019 Dec 28
  */
 
-#include <stdlib.h>
 #include <string.h>
 #include "crc32.h"
 
@@ -93,15 +92,13 @@ crc32_t crc32_concat(crc32_t checksum, const void* data, uint32_t len) {
 
 
 int crc32_selfcheck(const void *data, uint32_t len, crc32_t crc) {
-	uint8_t *msg = (uint8_t*)calloc(len + 4, 1);
+	uint8_t msg[len + 4];
 	crc = ~crc;
 
 	memcpy(msg, data, len);
 	memcpy(msg+len, &crc, 4);
 
 	int ret = crc32_check(msg, len+4);
-
-	free(msg);
 
 	return ret;
 }
