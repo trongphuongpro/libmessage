@@ -21,13 +21,18 @@ extern "C" {
 #endif
 
 #include <stdbool.h>
-#include "crc32.h"
 
 
 /** 
  * @brief maximum payload size
  */		
-#define MESSAGE_MAX_PAYLOAD_SIZE	32
+#define MESSAGE_MAX_PAYLOAD_SIZE	64
+
+
+/** 
+ * @brief massage preamble size
+ */	
+#define MESSAGE_PREAMBLE_SIZE	4
 
 
 /** 
@@ -48,9 +53,9 @@ typedef struct MessageBox* MessageBox_t;
  * @brief Struct contains message payload
  */  
 typedef struct Message {
-	uint8_t address; /**< @brief destination and source address: 2 bytes*/
+	uint8_t address; /**< @brief source address: 1 bytes*/
 	uint8_t payloadSize; /**< @brief size of payload: 1 byte */
-	uint8_t *payload; /**< @brief payload */
+	uint8_t payload[MESSAGE_MAX_PAYLOAD_SIZE]; /**< @brief payload */
 } __attribute__((packed)) Message;
 
 
@@ -77,17 +82,10 @@ extern volatile steps currentStep;
  * @param num max size of FIFO buffer.
  * @return pointer to received MessageFrame.
  */
-MessageBox_t uart_messagebox_create(uint32_t baudrate, uint8_t num);
-
-
-/** 
- * @brief Destroy message box
- * 
- * Free all allocated memory.
- *
- * @return nothing.
- */
-void messagebox_destroy(void);
+void uart_messagebox_create(uint32_t baudrate, 
+							MessageBox_t box, 
+							Message *data,
+							uint8_t num);
 
 
 /** 
@@ -100,7 +98,7 @@ void messagebox_destroy(void);
  * @param len length of message. 
  * @return nothing.
  */
-void messagebox_send(const void* preamble, 
+void message_send(const void* preamble, 
 						uint8_t destination, 
 						uint8_t source, 
 						const void* payload, 
@@ -116,48 +114,8 @@ void messagebox_send(const void* preamble,
  * @param b4 last byte.
  * @return nothing.
  */
-void messagebox_setPreamble(uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4);
+void message_setPreamble(uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4);
 
-
-/**
- * @brief check if new message is available in Message Box
- * @param buffer MessageBox instance.
- * @return true/false.
- */
-bool messagebox_isAvailable(MessageBox_t buffer);
-
-
-/**
- * @brief pop a message from Message Box
- * @param buffer MessageBox instance.
- * @param message message instance.
- * @return 0: success, -1: failed due Message Box is empty.
- */
-int messagebox_pop(MessageBox_t buffer, Message_t message);
-
-
-/**
- * @brief check the capacity of Message Box
- * @param buffer MessageBox instance.
- * @return the capacity of buffer
- */
-uint8_t messagebox_getCapacity(MessageBox_t buffer);
-
-
-/**
- * @brief get the used space of Message Box
- * @param buffer MessageBox instance.
- * @return the number of used space of buffer
- */
-uint8_t messagebox_getUsedSpace(MessageBox_t buffer);
-
-
-/**
- * @brief get the free space of Message Box
- * @param buffer MessageBox instance.
- * @return the number of free space of buffer
- */
-uint8_t messagebox_getFreeSpace(MessageBox_t buffer);
 
 #ifdef __cplusplus
 }

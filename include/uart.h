@@ -80,7 +80,7 @@ char uart_getchar(void);
  * @brief flush the receive buffer
  * @return last byte in the receive buffer.
  */
-uint8_t uart_flush(void);
+void uart_flush(void);
 
 
 #ifdef __cplusplus

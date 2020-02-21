@@ -84,12 +84,12 @@ char uart_getchar() {
 }
 
 
-uint8_t uart_flush() {
+void uart_flush() {
 	uint8_t dummy = 0;
 	while (UCSR0A & (1 << RXC0)) {
 		dummy = UDR0;
 	}
-	return dummy;
+	(void)dummy;
 }
 
 
