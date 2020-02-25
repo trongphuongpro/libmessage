@@ -12,7 +12,7 @@
 #include "messagebox.h"
 
 
-void messagebox_create(MessageBox *box, Message *data, uint8_t num) {
+void messagebox_create(MessageBox_t *box, Message_t *data, uint8_t num) {
 	assert(num);
 	assert(box);
 
@@ -28,8 +28,8 @@ void messagebox_create(MessageBox *box, Message *data, uint8_t num) {
 }
 
 
-void messagebox_clear(MessageBox* box) {
-	Message dump;
+void messagebox_clear(MessageBox_t *box) {
+	Message_t dump;
 
 	while (!messagebox_isEmpty(box)) {
 		messagebox_pop(box, &dump);
@@ -37,33 +37,33 @@ void messagebox_clear(MessageBox* box) {
 }
 
 
-bool messagebox_isAvailable(MessageBox* box) {
+bool messagebox_isAvailable(MessageBox_t *box) {
 	return !messagebox_isEmpty(box);
 }
 
 
-bool messagebox_isEmpty(MessageBox* box) {
+bool messagebox_isEmpty(MessageBox_t *box) {
 	assert(box);
 
 	return (!box->isFull && (box->readPoint == box->writePoint));
 }
 
 
-bool messagebox_isFull(MessageBox* box) {
+bool messagebox_isFull(MessageBox_t *box) {
 	assert(box);
 
 	return box->isFull;
 }
 
 
-uint8_t messagebox_getCapacity(MessageBox* box) {
+uint8_t messagebox_getCapacity(MessageBox_t *box) {
 	assert(box);
 
 	return box->capacity;
 }
 
 
-uint8_t messagebox_getUsedSpace(MessageBox* box) {
+uint8_t messagebox_getUsedSpace(MessageBox_t *box) {
 	assert(box);
 
 	uint8_t number = box->capacity;
@@ -81,12 +81,12 @@ uint8_t messagebox_getUsedSpace(MessageBox* box) {
 }
 
 
-uint8_t messagebox_getFreeSpace(MessageBox* box) {
+uint8_t messagebox_getFreeSpace(MessageBox_t *box) {
 	return messagebox_getCapacity(box) - messagebox_getUsedSpace(box);
 }
 
 
-/*void increase_checkpoints(MessageBox* box) {
+/*void increase_checkpoints(MessageBox_t* box) {
 	assert(box);
 
 	if (box->isFull) {
@@ -98,7 +98,7 @@ uint8_t messagebox_getFreeSpace(MessageBox* box) {
 }
 
 
-void decrease_checkpoints(MessageBox* box) {
+void decrease_checkpoints(MessageBox_t* box) {
 	assert(box);
 
 	box->readPoint = (box->readPoint + 1) % box->capacity;
@@ -106,7 +106,7 @@ void decrease_checkpoints(MessageBox* box) {
 }*/
 
 
-void messagebox_push(MessageBox* box, Message data) {
+void messagebox_push(MessageBox_t *box, Message_t data) {
 	assert(box && box->data);
 
 	if (!box->isFull) {
@@ -118,7 +118,7 @@ void messagebox_push(MessageBox* box, Message data) {
 }
 
 
-int messagebox_pop(MessageBox* box, Message *data) {
+int messagebox_pop(MessageBox_t *box, Message_t *data) {
 	assert(box && box->data && data);
 
 	int ret = -1;

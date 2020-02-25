@@ -16,6 +16,7 @@ elseif (FAMILY STREQUAL TIVA)
 								src/messagebox.c
 								lib/crc32_tiva.c
 								lib/uart_tiva.c
+								${TIVAWARE_PATH}/utils/uartstdio.c
 	)
 
 else()
@@ -23,7 +24,7 @@ else()
 
 endif()
 
-target_include_directories(${TARGET} PUBLIC include)
+target_include_directories(${TARGET} PRIVATE include)
 
 #-----------------------------------------------------------------------------#
 
@@ -31,6 +32,7 @@ if (FAMILY STREQUAL AVR)
 	target_compile_options(${TARGET} PUBLIC -mmcu=${MCU}
 											-std=gnu11
 											-O2
+											-g
 											-Wall
 											-Werror
 	)
@@ -41,7 +43,7 @@ if (FAMILY STREQUAL AVR)
 
 elseif (FAMILY STREQUAL TIVA)
 	target_link_libraries(${TARGET} ${TIVAWARE_PATH}/driverlib/gcc/libdriver.a)
-	target_include_directories(${TARGET} PUBLIC ${TIVAWARE_PATH})
+	target_include_directories(${TARGET} PRIVATE ${TIVAWARE_PATH})
 
 	target_compile_options(${TARGET} PUBLIC -mthumb
 											${CPU}
@@ -49,6 +51,7 @@ elseif (FAMILY STREQUAL TIVA)
 											${FLOAT}         
 											-std=gnu11
 											-O2
+											-g
 											-Wall
 											-Werror
 	)

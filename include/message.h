@@ -21,24 +21,18 @@ extern "C" {
 #endif
 
 #include <stdbool.h>
-
+#include <stdint.h>
 
 /** 
  * @brief maximum payload size
- */		
-#define MESSAGE_MAX_PAYLOAD_SIZE	64
+ */     
+#define MESSAGE_MAX_PAYLOAD_SIZE    64
 
 
 /** 
  * @brief massage preamble size
- */	
-#define MESSAGE_PREAMBLE_SIZE	4
-
-
-/** 
- * @brief enum contains code for each step of transmitting/receiving procedure
- */  
-typedef enum steps steps;
+ */ 
+#define MESSAGE_PREAMBLE_SIZE   4
 
 
 /**
@@ -46,23 +40,17 @@ typedef enum steps steps;
  *
  * User can use it w/o the knowledge about struct MessageBox.
  */
-typedef struct MessageBox* MessageBox_t;
+typedef struct MessageBox MessageBox_t;
 
 
 /** 
  * @brief Struct contains message payload
  */  
 typedef struct Message {
-	uint8_t address; /**< @brief source address: 1 bytes*/
-	uint8_t payloadSize; /**< @brief size of payload: 1 byte */
-	uint8_t payload[MESSAGE_MAX_PAYLOAD_SIZE]; /**< @brief payload */
-} __attribute__((packed)) Message;
-
-
-/** 
- * @brief global variable contains current state of procedure
- */
-extern volatile steps currentStep;
+    uint8_t address; /**< @brief source address: 1 bytes*/
+    uint8_t payloadSize; /**< @brief size of payload: 1 byte */
+    uint8_t payload[MESSAGE_MAX_PAYLOAD_SIZE]; /**< @brief payload */
+} __attribute__((packed)) Message_t;
 
 
 /** 
@@ -75,9 +63,9 @@ extern volatile steps currentStep;
  * @return pointer to received MessageFrame.
  */
 void uart_messagebox_create(uint32_t baudrate, 
-							MessageBox_t box, 
-							Message *data,
-							uint8_t num);
+                            MessageBox_t *box, 
+                            Message_t *data,
+                            uint8_t num);
 
 
 /** 
@@ -91,10 +79,10 @@ void uart_messagebox_create(uint32_t baudrate,
  * @return nothing.
  */
 void message_send(const void* preamble, 
-						uint8_t destination, 
-						uint8_t source, 
-						const void* payload, 
-						uint8_t len);
+                        uint8_t destination, 
+                        uint8_t source, 
+                        const void* payload, 
+                        uint8_t len);
 
 
 /** 

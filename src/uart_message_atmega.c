@@ -9,24 +9,26 @@
  * @date 2019 Dec 28
  */
 
+#include "message.h"
 
 #include <stdlib.h>
 #include <string.h>
+
 #include <avr/interrupt.h>
 #include <util/delay.h>
-#include "message.h"
+
 #include "messagebox.h"
 #include "uart.h"
 #include "crc32.h"
 
 
-enum steps {	parsingPreamble=0,
-				parsingAddress,
-				parsingSize,
-				parsingPayload,
-				parsingChecksum,
-				verifyingChecksum
-};
+typedef enum step {	kParsingPreamble = 0,
+					kParsingAddress,
+					kParsingSize,
+					kParsingPayload,
+					kParsingChecksum,
+					kVerifyingChecksum
+} step_t;
 
 
 /** 
@@ -38,8 +40,16 @@ typedef struct MessageFrame {
 	uint8_t payloadSize; /**< @brief size of payload: 1 byte */
 	uint8_t payload[MESSAGE_MAX_PAYLOAD_SIZE]; /**< @brief payload */
 	crc32_t checksum; /**< @brief CRC-32 checksum: 4 bytes */
-} __attribute__((packed)) MessageFrame;
+} __attribute__((packed)) MessageFrame_t;
 
+
+typedef void (*callbacktype)(void);
+
+static volatile step_t currentStep = kParsingPreamble;
+static uint8_t validPreamble[MESSAGE_PREAMBLE_SIZE] = {0xAA, 0xBB, 0xCC, 0xDD};
+static MessageFrame_t rxFrame;
+static MessageFrame_t txFrame;
+static MessageBox_t *messageBuffer;
 
 static void createFrame(const void*, uint8_t, uint8_t, const void*, uint8_t);
 static void parsePreamble(void);
@@ -48,29 +58,18 @@ static void parseSize(void);
 static void parsePayload(void);
 static void parseChecksum(void);
 static int verifyChecksum(void);
+static Message_t extractMessage(MessageFrame_t *);
 
-static Message extractMessage(MessageFrame*);
-
-
-typedef void (*callbacktype)(void);
 static callbacktype callback[] = {	parsePreamble, 
 									parseAddress, 
 									parseSize, 
 									parsePayload, 
 									parseChecksum };
 
-volatile steps currentStep = parsingPreamble;
-
-static uint8_t validPreamble[MESSAGE_PREAMBLE_SIZE] = {0xAA, 0xBB, 0xCC, 0xDD};
-
-static MessageFrame rxFrame;
-static MessageFrame txFrame;
-static MessageBox* messageBuffer;
-
 
 void uart_messagebox_create(uint32_t baudrate, 
-							MessageBox* box, 
-							Message* data,
+							MessageBox_t *box, 
+							Message_t *data,
 							uint8_t num) 
 {
 	
@@ -90,12 +89,46 @@ void message_setPreamble(uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4) {
 }
 
 
-static void createFrame(const void* __preamble, 
+void message_send(	const void* _preamble, 
 						uint8_t des, 
 						uint8_t src, 
 						const void* _data, 
-						uint8_t len) 
-{
+						uint8_t len) {
+
+	createFrame(_preamble, des, src, _data, len);
+
+	uart_sendBuffer(txFrame.preamble, 4);
+	uart_sendBuffer(txFrame.address, 2);
+	uart_send(txFrame.payloadSize);
+	uart_sendBuffer(txFrame.payload, txFrame.payloadSize);
+	uart_sendBuffer(&txFrame.checksum, sizeof(crc32_t));
+
+	_delay_ms(5);
+}
+
+
+int verifyChecksum() {
+	crc32_t ret = crc32_concat(crc32_compute(&rxFrame, 
+											sizeof(rxFrame.preamble) 
+											+ sizeof(rxFrame.address) 
+											+ sizeof(rxFrame.payloadSize)),
+								rxFrame.payload, rxFrame.payloadSize);
+
+	if (ret == rxFrame.checksum) {
+		return 0;
+	}
+	else {
+		return -1;
+	}
+}
+
+
+void createFrame(const void* __preamble, 
+					uint8_t des, 
+					uint8_t src, 
+					const void* _data, 
+					uint8_t len) {
+
 	uint8_t* preamble = (uint8_t*)__preamble;
 	uint8_t* data = (uint8_t*)_data;
 
@@ -128,26 +161,20 @@ static void createFrame(const void* __preamble,
 }
 
 
-void message_send(	const void* _preamble, 
-						uint8_t des, 
-						uint8_t src, 
-						const void* _data, 
-						uint8_t len) 
-{
-	createFrame(_preamble, des, src, _data, len);
+Message_t extractMessage(MessageFrame_t *frame) {
+	Message_t message;
 
-	uart_sendBuffer(txFrame.preamble, 4);
-	uart_sendBuffer(txFrame.address, 2);
-	uart_send(txFrame.payloadSize);
-	uart_sendBuffer(txFrame.payload, txFrame.payloadSize);
-	uart_sendBuffer(&txFrame.checksum, sizeof(crc32_t));
+	message.address = frame->address[1];
+	message.payloadSize = frame->payloadSize;
 
-	_delay_ms(5);
+	memcpy(message.payload, frame->payload, message.payloadSize);
+
+	return message;
 }
 
 
-static void parsePreamble() {
-	if (currentStep == parsingPreamble) {
+void parsePreamble() {
+	if (currentStep == kParsingPreamble) {
 		static int counter;
 
 		rxFrame.preamble[counter] = UDR0;
@@ -162,14 +189,14 @@ static void parsePreamble() {
 		// go to next currentStep if 4-byte preamble is read.
 		if (counter == MESSAGE_PREAMBLE_SIZE) {
 			counter = 0;
-			currentStep = parsingAddress;
+			currentStep = kParsingAddress;
 		}
 	}
 }
 
 
-static void parseAddress() {
-	if (currentStep == parsingAddress) {
+void parseAddress() {
+	if (currentStep == kParsingAddress) {
 		static int counter;
 
 		rxFrame.address[counter++] = UDR0;
@@ -177,48 +204,48 @@ static void parseAddress() {
 		// go to next currentStep if 2-byte address is read.
 		if (counter == 2) {
 			counter = 0;
-			currentStep = parsingSize;
+			currentStep = kParsingSize;
 		}
 	}
 }
 
 
-static void parseSize() {
-	if (currentStep == parsingSize) {
+void parseSize() {
+	if (currentStep == kParsingSize) {
 		rxFrame.payloadSize = UDR0;
 
 		if (rxFrame.payloadSize > MESSAGE_MAX_PAYLOAD_SIZE) {
 			rxFrame.payloadSize = MESSAGE_MAX_PAYLOAD_SIZE;
 		}
 
-		currentStep = parsingPayload;
+		currentStep = kParsingPayload;
 	}
 }
 
 
-static void parsePayload() {
-	if (currentStep == parsingPayload) {
+void parsePayload() {
+	if (currentStep == kParsingPayload) {
 		static int counter;
 
 		rxFrame.payload[counter++] = UDR0;
 
 		if (counter == rxFrame.payloadSize) {
 			counter = 0;
-			currentStep = parsingChecksum;
+			currentStep = kParsingChecksum;
 		}
 	}
 }
 
 
-static void parseChecksum() {
-	if (currentStep == parsingChecksum) {
+void parseChecksum() {
+	if (currentStep == kParsingChecksum) {
 		static int counter;
 
 		((uint8_t*)&rxFrame.checksum)[counter++] = UDR0;
 
 		if (counter == sizeof(crc32_t)) {
 			counter = 0;
-			currentStep = verifyingChecksum;
+			currentStep = kVerifyingChecksum;
 
 			if (verifyChecksum() == 0) {
 				if (!messagebox_isFull(messageBuffer)) {
@@ -226,42 +253,14 @@ static void parseChecksum() {
 				}
 			}
 
-			currentStep = parsingPreamble;
+			currentStep = kParsingPreamble;
 		}
 	}
 }
 
 
-int verifyChecksum() {
-	crc32_t ret = crc32_concat(crc32_compute(&rxFrame, 
-											sizeof(rxFrame.preamble) 
-											+ sizeof(rxFrame.address) 
-											+ sizeof(rxFrame.payloadSize)),
-								rxFrame.payload, rxFrame.payloadSize);
-
-	if (ret == rxFrame.checksum) {
-		return 0;
-	}
-	else {
-		return -1;
-	}
-}
-
-
-Message extractMessage(MessageFrame* frame) {
-	Message message;
-
-	message.address = frame->address[1];
-	message.payloadSize = frame->payloadSize;
-
-	memcpy(message.payload, frame->payload, message.payloadSize);
-
-	return message;
-}
-
-
 ISR(USART_RX_vect) {
-	if (currentStep < verifyingChecksum) {
+	if (currentStep < kVerifyingChecksum) {
 		callback[currentStep]();
 	}
 }
