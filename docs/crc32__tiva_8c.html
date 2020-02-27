@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.16"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MessageProtocol: /home/trongphuong/Work/BareMetal/libraries/message/include/crc32.h File Reference</title>
+<title>MessageProtocol: /home/trongphuong/Work/BareMetal/libraries/message/lib/crc32_tiva.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,51 +61,52 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_97aefd0d527b934f1d99a682da8fe6a9.html">lib</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">crc32.h File Reference</div>  </div>
+<div class="title">crc32_tiva.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Function prototypes for computing CRC-32 checksum for AVR MCUs.  
+<p>Function implementation for computing CRC-32 checksum for AVR MCUs.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
-</div>
-<p><a href="crc32_8h_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:a11acfb80bcc64e1f15096435cefe1079"><td class="memItemLeft" align="right" valign="top"><a id="a11acfb80bcc64e1f15096435cefe1079"></a>
-typedef uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="crc32_8h.html#a11acfb80bcc64e1f15096435cefe1079">crc32_t</a></td></tr>
-<tr class="memdesc:a11acfb80bcc64e1f15096435cefe1079"><td class="mdescLeft">&#160;</td><td class="mdescRight">datatype for CRC-32 checksum value <br /></td></tr>
-<tr class="separator:a11acfb80bcc64e1f15096435cefe1079"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<div class="textblock"><code>#include &lt;string.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="crc32_8h_source.html">crc32.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a9e13892a1d12dd94447908d840a1d364"><td class="memItemLeft" align="right" valign="top"><a id="a9e13892a1d12dd94447908d840a1d364"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CRC32POLY</b>&#160;&#160;&#160;0x04C11DB7</td></tr>
+<tr class="separator:a9e13892a1d12dd94447908d840a1d364"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a634fca329a19af519544b2cd50761f74"><td class="memItemLeft" align="right" valign="top"><a id="a634fca329a19af519544b2cd50761f74"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CRC32POLY_REVERSE</b>&#160;&#160;&#160;0xEDB88320</td></tr>
+<tr class="separator:a634fca329a19af519544b2cd50761f74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a5d0dacbd251b370b6c2c5afd8207ec51"><td class="memItemLeft" align="right" valign="top"><a class="el" href="crc32_8h.html#a11acfb80bcc64e1f15096435cefe1079">crc32_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="crc32_8h.html#a5d0dacbd251b370b6c2c5afd8207ec51">crc32_compute</a> (const void *data, uint32_t len)</td></tr>
-<tr class="memdesc:a5d0dacbd251b370b6c2c5afd8207ec51"><td class="mdescLeft">&#160;</td><td class="mdescRight">compute CRC-32 checksum value for a byte array.  <a href="crc32_8h.html#a5d0dacbd251b370b6c2c5afd8207ec51">More...</a><br /></td></tr>
+<tr class="memitem:a9abea887f27581b0aee2daa636cbbaa8"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="crc32__tiva_8c.html#a9abea887f27581b0aee2daa636cbbaa8">reverse</a> (uint8_t number)</td></tr>
+<tr class="memdesc:a9abea887f27581b0aee2daa636cbbaa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">reverse one byte data.  <a href="crc32__tiva_8c.html#a9abea887f27581b0aee2daa636cbbaa8">More...</a><br /></td></tr>
+<tr class="separator:a9abea887f27581b0aee2daa636cbbaa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d0dacbd251b370b6c2c5afd8207ec51"><td class="memItemLeft" align="right" valign="top"><a class="el" href="crc32_8h.html#a11acfb80bcc64e1f15096435cefe1079">crc32_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="crc32__tiva_8c.html#a5d0dacbd251b370b6c2c5afd8207ec51">crc32_compute</a> (const void *data, uint32_t len)</td></tr>
+<tr class="memdesc:a5d0dacbd251b370b6c2c5afd8207ec51"><td class="mdescLeft">&#160;</td><td class="mdescRight">compute CRC-32 checksum value for a byte array.  <a href="crc32__tiva_8c.html#a5d0dacbd251b370b6c2c5afd8207ec51">More...</a><br /></td></tr>
 <tr class="separator:a5d0dacbd251b370b6c2c5afd8207ec51"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6cd0e5773dab575e4af538161549cb00"><td class="memItemLeft" align="right" valign="top"><a class="el" href="crc32_8h.html#a11acfb80bcc64e1f15096435cefe1079">crc32_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="crc32_8h.html#a6cd0e5773dab575e4af538161549cb00">crc32_concat</a> (<a class="el" href="crc32_8h.html#a11acfb80bcc64e1f15096435cefe1079">crc32_t</a> checksum, const void *data, uint32_t len)</td></tr>
-<tr class="memdesc:a6cd0e5773dab575e4af538161549cb00"><td class="mdescLeft">&#160;</td><td class="mdescRight">compute CRC-32 checksum value for 2 separated data arrays.  <a href="crc32_8h.html#a6cd0e5773dab575e4af538161549cb00">More...</a><br /></td></tr>
+<tr class="memitem:a6cd0e5773dab575e4af538161549cb00"><td class="memItemLeft" align="right" valign="top"><a class="el" href="crc32_8h.html#a11acfb80bcc64e1f15096435cefe1079">crc32_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="crc32__tiva_8c.html#a6cd0e5773dab575e4af538161549cb00">crc32_concat</a> (<a class="el" href="crc32_8h.html#a11acfb80bcc64e1f15096435cefe1079">crc32_t</a> checksum, const void *data, uint32_t len)</td></tr>
+<tr class="memdesc:a6cd0e5773dab575e4af538161549cb00"><td class="mdescLeft">&#160;</td><td class="mdescRight">compute CRC-32 checksum value for 2 separated data arrays.  <a href="crc32__tiva_8c.html#a6cd0e5773dab575e4af538161549cb00">More...</a><br /></td></tr>
 <tr class="separator:a6cd0e5773dab575e4af538161549cb00"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae00328ba2f0dce927c49991fbbcc453f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="crc32_8h.html#ae00328ba2f0dce927c49991fbbcc453f">crc32_selfcheck</a> (const void *data, uint32_t len, <a class="el" href="crc32_8h.html#a11acfb80bcc64e1f15096435cefe1079">crc32_t</a> checksum)</td></tr>
-<tr class="memdesc:ae00328ba2f0dce927c49991fbbcc453f"><td class="mdescLeft">&#160;</td><td class="mdescRight">check the accuracy of computed CRC-32 checksum value.  <a href="crc32_8h.html#ae00328ba2f0dce927c49991fbbcc453f">More...</a><br /></td></tr>
-<tr class="separator:ae00328ba2f0dce927c49991fbbcc453f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a163e663f1fd09938b3f16021d8917372"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="crc32_8h.html#a163e663f1fd09938b3f16021d8917372">crc32_check</a> (const void *data, uint32_t len)</td></tr>
-<tr class="memdesc:a163e663f1fd09938b3f16021d8917372"><td class="mdescLeft">&#160;</td><td class="mdescRight">check the integrity of data.  <a href="crc32_8h.html#a163e663f1fd09938b3f16021d8917372">More...</a><br /></td></tr>
+<tr class="memitem:a84c3a0fa5b8f4fe9fadd83c6c8860c2e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="crc32__tiva_8c.html#a84c3a0fa5b8f4fe9fadd83c6c8860c2e">crc32_selfcheck</a> (const void *data, uint32_t len, <a class="el" href="crc32_8h.html#a11acfb80bcc64e1f15096435cefe1079">crc32_t</a> crc)</td></tr>
+<tr class="memdesc:a84c3a0fa5b8f4fe9fadd83c6c8860c2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">check the accuracy of computed CRC-32 checksum value.  <a href="crc32__tiva_8c.html#a84c3a0fa5b8f4fe9fadd83c6c8860c2e">More...</a><br /></td></tr>
+<tr class="separator:a84c3a0fa5b8f4fe9fadd83c6c8860c2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a163e663f1fd09938b3f16021d8917372"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="crc32__tiva_8c.html#a163e663f1fd09938b3f16021d8917372">crc32_check</a> (const void *data, uint32_t len)</td></tr>
+<tr class="memdesc:a163e663f1fd09938b3f16021d8917372"><td class="mdescLeft">&#160;</td><td class="mdescRight">check the integrity of data.  <a href="crc32__tiva_8c.html#a163e663f1fd09938b3f16021d8917372">More...</a><br /></td></tr>
 <tr class="separator:a163e663f1fd09938b3f16021d8917372"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab2d3d4e8fd97f6b58185845d08c7b6be"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="crc32_8h.html#ab2d3d4e8fd97f6b58185845d08c7b6be">reverse</a> (uint8_t data)</td></tr>
-<tr class="memdesc:ab2d3d4e8fd97f6b58185845d08c7b6be"><td class="mdescLeft">&#160;</td><td class="mdescRight">reverse one byte data.  <a href="crc32_8h.html#ab2d3d4e8fd97f6b58185845d08c7b6be">More...</a><br /></td></tr>
-<tr class="separator:ab2d3d4e8fd97f6b58185845d08c7b6be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Function prototypes for computing CRC-32 checksum for AVR MCUs. </p>
+<div class="textblock"><p>Function implementation for computing CRC-32 checksum for AVR MCUs. </p>
 <dl class="section author"><dt>Author</dt><dd>Nguyen Trong Phuong (aka trongphuongpro) </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2019 Dec 28 </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
@@ -232,8 +233,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ae00328ba2f0dce927c49991fbbcc453f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae00328ba2f0dce927c49991fbbcc453f">&#9670;&nbsp;</a></span>crc32_selfcheck()</h2>
+<a id="a84c3a0fa5b8f4fe9fadd83c6c8860c2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84c3a0fa5b8f4fe9fadd83c6c8860c2e">&#9670;&nbsp;</a></span>crc32_selfcheck()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -279,8 +280,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ab2d3d4e8fd97f6b58185845d08c7b6be"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab2d3d4e8fd97f6b58185845d08c7b6be">&#9670;&nbsp;</a></span>reverse()</h2>
+<a id="a9abea887f27581b0aee2daa636cbbaa8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9abea887f27581b0aee2daa636cbbaa8">&#9670;&nbsp;</a></span>reverse()</h2>
 
 <div class="memitem">
 <div class="memproto">

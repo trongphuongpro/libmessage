@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.16"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MessageProtocol: /home/trongphuong/Work/AVR/libraries/message/include/crc32.h Source File</title>
+<title>MessageProtocol: /home/trongphuong/Work/BareMetal/libraries/message/include/crc32.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -103,12 +103,12 @@ $(function() {
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* __CRC32__ */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="acrc32_8h_html_ab2d3d4e8fd97f6b58185845d08c7b6be"><div class="ttname"><a href="crc32_8h.html#ab2d3d4e8fd97f6b58185845d08c7b6be">reverse</a></div><div class="ttdeci">uint8_t reverse(uint8_t data)</div><div class="ttdoc">reverse one byte data.</div><div class="ttdef"><b>Definition:</b> crc32.c:64</div></div>
+<div class="ttc" id="acrc32_8h_html_ab2d3d4e8fd97f6b58185845d08c7b6be"><div class="ttname"><a href="crc32_8h.html#ab2d3d4e8fd97f6b58185845d08c7b6be">reverse</a></div><div class="ttdeci">uint8_t reverse(uint8_t data)</div><div class="ttdoc">reverse one byte data.</div><div class="ttdef"><b>Definition:</b> crc32_atmega.c:62</div></div>
 <div class="ttc" id="acrc32_8h_html_a11acfb80bcc64e1f15096435cefe1079"><div class="ttname"><a href="crc32_8h.html#a11acfb80bcc64e1f15096435cefe1079">crc32_t</a></div><div class="ttdeci">uint32_t crc32_t</div><div class="ttdoc">datatype for CRC-32 checksum value</div><div class="ttdef"><b>Definition:</b> crc32.h:22</div></div>
-<div class="ttc" id="acrc32_8h_html_a6cd0e5773dab575e4af538161549cb00"><div class="ttname"><a href="crc32_8h.html#a6cd0e5773dab575e4af538161549cb00">crc32_concat</a></div><div class="ttdeci">crc32_t crc32_concat(crc32_t checksum, const void *data, uint32_t len)</div><div class="ttdoc">compute CRC-32 checksum value for 2 separated data arrays.</div><div class="ttdef"><b>Definition:</b> crc32.c:88</div></div>
-<div class="ttc" id="acrc32_8h_html_a163e663f1fd09938b3f16021d8917372"><div class="ttname"><a href="crc32_8h.html#a163e663f1fd09938b3f16021d8917372">crc32_check</a></div><div class="ttdeci">int crc32_check(const void *data, uint32_t len)</div><div class="ttdoc">check the integrity of data.</div><div class="ttdef"><b>Definition:</b> crc32.c:118</div></div>
-<div class="ttc" id="acrc32_8h_html_a5d0dacbd251b370b6c2c5afd8207ec51"><div class="ttname"><a href="crc32_8h.html#a5d0dacbd251b370b6c2c5afd8207ec51">crc32_compute</a></div><div class="ttdeci">crc32_t crc32_compute(const void *data, uint32_t len)</div><div class="ttdoc">compute CRC-32 checksum value for a byte array.</div><div class="ttdef"><b>Definition:</b> crc32.c:73</div></div>
-<div class="ttc" id="acrc32_8h_html_ae00328ba2f0dce927c49991fbbcc453f"><div class="ttname"><a href="crc32_8h.html#ae00328ba2f0dce927c49991fbbcc453f">crc32_selfcheck</a></div><div class="ttdeci">int crc32_selfcheck(const void *data, uint32_t len, crc32_t checksum)</div><div class="ttdoc">check the accuracy of computed CRC-32 checksum value.</div><div class="ttdef"><b>Definition:</b> crc32.c:103</div></div>
+<div class="ttc" id="acrc32_8h_html_a6cd0e5773dab575e4af538161549cb00"><div class="ttname"><a href="crc32_8h.html#a6cd0e5773dab575e4af538161549cb00">crc32_concat</a></div><div class="ttdeci">crc32_t crc32_concat(crc32_t checksum, const void *data, uint32_t len)</div><div class="ttdoc">compute CRC-32 checksum value for 2 separated data arrays.</div><div class="ttdef"><b>Definition:</b> crc32_atmega.c:86</div></div>
+<div class="ttc" id="acrc32_8h_html_a163e663f1fd09938b3f16021d8917372"><div class="ttname"><a href="crc32_8h.html#a163e663f1fd09938b3f16021d8917372">crc32_check</a></div><div class="ttdeci">int crc32_check(const void *data, uint32_t len)</div><div class="ttdoc">check the integrity of data.</div><div class="ttdef"><b>Definition:</b> crc32_atmega.c:114</div></div>
+<div class="ttc" id="acrc32_8h_html_a5d0dacbd251b370b6c2c5afd8207ec51"><div class="ttname"><a href="crc32_8h.html#a5d0dacbd251b370b6c2c5afd8207ec51">crc32_compute</a></div><div class="ttdeci">crc32_t crc32_compute(const void *data, uint32_t len)</div><div class="ttdoc">compute CRC-32 checksum value for a byte array.</div><div class="ttdef"><b>Definition:</b> crc32_atmega.c:71</div></div>
+<div class="ttc" id="acrc32_8h_html_ae00328ba2f0dce927c49991fbbcc453f"><div class="ttname"><a href="crc32_8h.html#ae00328ba2f0dce927c49991fbbcc453f">crc32_selfcheck</a></div><div class="ttdeci">int crc32_selfcheck(const void *data, uint32_t len, crc32_t checksum)</div><div class="ttdoc">check the accuracy of computed CRC-32 checksum value.</div><div class="ttdef"><b>Definition:</b> crc32_atmega.c:101</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">
