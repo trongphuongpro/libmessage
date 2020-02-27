@@ -90,7 +90,7 @@ void uart_messagebox_create(uint32_t uartbase,
 }
 
 
-void messagebox_setPreamble(uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4) {
+void message_setPreamble(uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4) {
     validPreamble[0] = b1;
     validPreamble[1] = b2;
     validPreamble[2] = b3;
@@ -98,7 +98,7 @@ void messagebox_setPreamble(uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4) {
 }
 
 
-void messagebox_send(   const void* _preamble, 
+void message_send(   const void* _preamble, 
                         uint8_t des, 
                         uint8_t src, 
                         const void* _data, 
