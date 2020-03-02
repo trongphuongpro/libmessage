@@ -4,14 +4,14 @@ set(TARGET message)
 
 #-----------------------------------------------------------------------------#
 
-if (FAMILY STREQUAL AVR)
+if (SERIES STREQUAL ATMEGA)
 	add_library(${TARGET} STATIC src/uart_message_atmega.c
 								src/messagebox.c
 								lib/crc32_atmega.c
 								lib/uart_atmega.c
 	)
 
-elseif (FAMILY STREQUAL TIVA)
+elseif (SERIES STREQUAL TIVA)
 	add_library(${TARGET} STATIC src/uart_message_tiva.c
 								src/messagebox.c
 								lib/crc32_tiva.c
@@ -20,7 +20,7 @@ elseif (FAMILY STREQUAL TIVA)
 	)
 
 else()
-	message(">> Failure due to missing FAMILY.")
+	message(">> Failure due to missing SERIES.")
 
 endif()
 
@@ -28,7 +28,7 @@ target_include_directories(${TARGET} PRIVATE include)
 
 #-----------------------------------------------------------------------------#
 
-if (FAMILY STREQUAL AVR)
+if (SERIES STREQUAL ATMEGA)
 	target_compile_options(${TARGET} PUBLIC -mmcu=${MCU}
 											-std=gnu11
 											-O2
@@ -41,7 +41,7 @@ if (FAMILY STREQUAL AVR)
 
 #-----------------------------------------------------------------------------#
 
-elseif (FAMILY STREQUAL TIVA)
+elseif (SERIES STREQUAL TIVA)
 	target_link_libraries(${TARGET} ${TIVAWARE_PATH}/driverlib/gcc/libdriver.a)
 	target_include_directories(${TARGET} PRIVATE ${TIVAWARE_PATH})
 
@@ -63,6 +63,6 @@ elseif (FAMILY STREQUAL TIVA)
 #-----------------------------------------------------------------------------#
 
 else()
-	message(">> Failure due to missing FAMILY.")
+	message(">> Failure due to missing SERIES.")
 
 endif()
