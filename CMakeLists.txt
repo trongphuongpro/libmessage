@@ -24,7 +24,7 @@ else()
 
 endif()
 
-target_include_directories(${TARGET} PRIVATE include)
+target_include_directories(${TARGET} PUBLIC include)
 
 #-----------------------------------------------------------------------------#
 
