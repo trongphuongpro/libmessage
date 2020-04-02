@@ -14,7 +14,14 @@ extern "C" {
 #endif
 
 #include <stdbool.h>
-#include "message.h"
+
+
+/**
+ * @brief Abstract datatype of struct MessageBox.
+ *
+ * User can use it w/o the knowledge about struct MessageBox.
+ */
+typedef struct Message Message_t;
 
 
 /** 
@@ -111,7 +118,7 @@ uint8_t messagebox_getFreeSpace(MessageBox_t* buffer);
  * @param message message instance.
  * @return the number of free space of buffer
  */
-void messagebox_push(MessageBox_t* buffer, Message_t message);
+void messagebox_push(MessageBox_t* buffer, Message_t *message);
 
 
 /**

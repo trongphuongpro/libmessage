@@ -249,7 +249,8 @@ void parseChecksum() {
 
 			if (verifyChecksum() == 0) {
 				if (!messagebox_isFull(messageBuffer)) {
-					messagebox_push(messageBuffer, extractMessage(&rxFrame));
+                    Message_t new_message = extractMessage(&rxFrame);
+					messagebox_push(messageBuffer, &new_message);
 				}
 			}
 

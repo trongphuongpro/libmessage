@@ -10,6 +10,7 @@
 #include <string.h>
 #include <assert.h>
 #include "messagebox.h"
+#include "message.h"
 
 
 void messagebox_create(MessageBox_t *box, Message_t *data, uint8_t num) {
@@ -106,11 +107,11 @@ void decrease_checkpoints(MessageBox_t* box) {
 }*/
 
 
-void messagebox_push(MessageBox_t *box, Message_t data) {
+void messagebox_push(MessageBox_t *box, Message_t *data) {
 	assert(box && box->data);
 
 	if (!box->isFull) {
-		box->data[box->writePoint] = data;
+		box->data[box->writePoint] = *data;
 
 		box->writePoint = (box->writePoint + 1) % box->capacity;
 		box->isFull = (box->readPoint == box->writePoint);
