@@ -16,11 +16,6 @@ extern "C" {
 #include <stdbool.h>
 
 
-/**
- * @brief Abstract datatype of struct MessageBox.
- *
- * User can use it w/o the knowledge about struct MessageBox.
- */
 typedef struct Message Message_t;
 
 
@@ -43,7 +38,7 @@ typedef struct MessageBox {
  * @param num max number of element in buffer.
  * @return new ring buffer instance.
  */
-void messagebox_create(MessageBox_t* box, Message_t *data, uint8_t num);
+MessageBox_t messagebox_create(Message_t *data, uint8_t num);
 
 
 /**

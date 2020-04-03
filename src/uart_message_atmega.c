@@ -49,7 +49,7 @@ static volatile step_t currentStep = kParsingPreamble;
 static uint8_t validPreamble[MESSAGE_PREAMBLE_SIZE] = {0xAA, 0xBB, 0xCC, 0xDD};
 static MessageFrame_t rxFrame;
 static MessageFrame_t txFrame;
-static MessageBox_t *messageBuffer;
+static MessageBox_t messageBox;
 
 static void createFrame(const void*, uint8_t, uint8_t, const void*, uint8_t);
 static void parsePreamble(void);
@@ -67,17 +67,17 @@ static callbacktype callback[] = {	parsePreamble,
 									parseChecksum };
 
 
-void uart_messagebox_create(uint32_t baudrate, 
-							MessageBox_t *box, 
-							Message_t *data,
-							uint8_t num) 
+MessageBox_t *uart_messagebox_create(uint32_t baudrate, 
+									Message_t *data,
+									uint8_t num) 
 {
 	
 	uart_open(baudrate);
 	sei();
 
-	messageBuffer = box;
-	messagebox_create(messageBuffer, data, num);
+	messageBox = messagebox_create(data, num);
+
+	return &messageBox;
 }
 
 
@@ -248,9 +248,9 @@ void parseChecksum() {
 			currentStep = kVerifyingChecksum;
 
 			if (verifyChecksum() == 0) {
-				if (!messagebox_isFull(messageBuffer)) {
+				if (!messagebox_isFull(&messageBox)) {
                     Message_t new_message = extractMessage(&rxFrame);
-					messagebox_push(messageBuffer, &new_message);
+					messagebox_push(&messageBox, &new_message);
 				}
 			}
 

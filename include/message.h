@@ -40,7 +40,7 @@ extern "C" {
  *
  * User can use it w/o the knowledge about struct MessageBox.
  */
-typedef struct MessageBox MessageBox_t;
+typedef struct MessageBox* MessageBox_p;
 
 
 /** 
@@ -62,8 +62,7 @@ typedef struct Message {
  * @param num max size of FIFO buffer.
  * @return pointer to received MessageFrame.
  */
-void uart_messagebox_create(uint32_t baudrate, 
-                            MessageBox_t *box, 
+MessageBox_p uart_messagebox_create(uint32_t baudrate, 
                             Message_t *data,
                             uint8_t num);
 

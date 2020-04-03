@@ -13,19 +13,22 @@
 #include "message.h"
 
 
-void messagebox_create(MessageBox_t *box, Message_t *data, uint8_t num) {
+MessageBox_t messagebox_create(Message_t *data, uint8_t num) {
 	assert(num);
-	assert(box);
+	assert(data);
 
-	box->data = data;
-	assert(box->data);
+	MessageBox_t box;
 
-	box->capacity = num;
-	box->readPoint = 0;
-	box->writePoint = 0;
-	box->isFull = false;
+	box.data = data;
 
-	assert(messagebox_isEmpty(box));
+	box.capacity = num;
+	box.readPoint = 0;
+	box.writePoint = 0;
+	box.isFull = false;
+
+	assert(messagebox_isEmpty(&box));
+
+	return box;
 }
 
 

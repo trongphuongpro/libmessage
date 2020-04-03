@@ -50,7 +50,7 @@ static volatile step_t currentStep = kParsingPreamble;
 static uint8_t validPreamble[MESSAGE_PREAMBLE_SIZE] = {0xAA, 0xBB, 0xCC, 0xDD};
 static MessageFrame_t rxFrame;
 static MessageFrame_t txFrame;
-static MessageBox_t *messageBuffer;
+static MessageBox_t messageBox;
 static uint32_t UARTbase;
 
 
@@ -73,20 +73,20 @@ static callbacktype callback[] = {  parsePreamble,
                                     parseChecksum };
                                     
 
-void uart_messagebox_create(uint32_t uartbase,
-                            MessageBox_t *box, 
-                            Message_t *data,
-                            uint8_t num) 
+MessageBox_t *uart_messagebox_create(uint32_t uartbase,
+                                    Message_t *data,
+                                    uint8_t num) 
 {
     UARTbase = uartbase;
-    messageBuffer = box;
 
     UARTIntRegister(uartbase, ISR);
     UARTIntEnable(uartbase, UART_INT_RX);
 
     uart_open(uartbase);
-    messagebox_create(messageBuffer, data, num);
 
+    messageBox = messagebox_create(data, num);
+
+    return &messageBox;
 }
 
 
@@ -98,11 +98,11 @@ void message_setPreamble(uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4) {
 }
 
 
-void message_send(   const void* _preamble, 
-                        uint8_t des, 
-                        uint8_t src, 
-                        const void* _data, 
-                        uint8_t len) 
+void message_send(  const void* _preamble, 
+                    uint8_t des, 
+                    uint8_t src, 
+                    const void* _data, 
+                    uint8_t len) 
 {
     createFrame(_preamble, des, src, _data, len);
 
@@ -259,9 +259,9 @@ void parseChecksum() {
             currentStep = kVerifyingChecksum;
 
             if (verifyChecksum() == 0) {
-                if (!messagebox_isFull(messageBuffer)) {
+                if (!messagebox_isFull(&messageBox)) {
                     Message_t new_message = extractMessage(&rxFrame);
-                    messagebox_push(messageBuffer, &new_message);
+                    messagebox_push(&messageBox, &new_message);
                 }
             }
 
