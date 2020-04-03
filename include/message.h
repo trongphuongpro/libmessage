@@ -59,6 +59,7 @@ typedef struct Message {
  * Open UART bus, initialize crc32 checksum, enable interrupt.
  *
  * @param baudrate UART baudrate.
+ * @param data an array of Message_t.
  * @param num max size of FIFO buffer.
  * @return pointer to received MessageFrame.
  */

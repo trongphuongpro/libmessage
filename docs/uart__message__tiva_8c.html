@@ -128,9 +128,9 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a8483f548e65aeaf218191887c76257c4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="uart__message__tiva_8c.html#a8483f548e65aeaf218191887c76257c4">uart_messagebox_create</a> (uint32_t uartbase, <a class="el" href="message_8h.html#a48127d7e6212c40e06f748b9e12681b5">MessageBox_t</a> *box, <a class="el" href="message_8h.html#a43b603140c4e850ae8808ca680e8fd63">Message_t</a> *data, uint8_t num)</td></tr>
-<tr class="memdesc:a8483f548e65aeaf218191887c76257c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create message box.  <a href="uart__message__tiva_8c.html#a8483f548e65aeaf218191887c76257c4">More...</a><br /></td></tr>
-<tr class="separator:a8483f548e65aeaf218191887c76257c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f84dd11f8c2a03fde17a4005589c162"><td class="memItemLeft" align="right" valign="top"><a class="el" href="messagebox_8h.html#a58bdc10896e5e084d436a52ca45ac9d9">MessageBox_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="uart__message__tiva_8c.html#a4f84dd11f8c2a03fde17a4005589c162">uart_messagebox_create</a> (uint32_t uartbase, <a class="el" href="message_8h.html#a43b603140c4e850ae8808ca680e8fd63">Message_t</a> *data, uint8_t num)</td></tr>
+<tr class="memdesc:a4f84dd11f8c2a03fde17a4005589c162"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create message box.  <a href="uart__message__tiva_8c.html#a4f84dd11f8c2a03fde17a4005589c162">More...</a><br /></td></tr>
+<tr class="separator:a4f84dd11f8c2a03fde17a4005589c162"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad22f8d31adab5aaae67ef6eed824d86e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="uart__message__tiva_8c.html#ad22f8d31adab5aaae67ef6eed824d86e">message_setPreamble</a> (uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4)</td></tr>
 <tr class="memdesc:ad22f8d31adab5aaae67ef6eed824d86e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set valid preamble (4 bytes) for incoming frame.  <a href="uart__message__tiva_8c.html#ad22f8d31adab5aaae67ef6eed824d86e">More...</a><br /></td></tr>
 <tr class="separator:ad22f8d31adab5aaae67ef6eed824d86e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -255,23 +255,17 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a8483f548e65aeaf218191887c76257c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8483f548e65aeaf218191887c76257c4">&#9670;&nbsp;</a></span>uart_messagebox_create()</h2>
+<a id="a4f84dd11f8c2a03fde17a4005589c162"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f84dd11f8c2a03fde17a4005589c162">&#9670;&nbsp;</a></span>uart_messagebox_create()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void uart_messagebox_create </td>
+          <td class="memname"><a class="el" href="messagebox_8h.html#a58bdc10896e5e084d436a52ca45ac9d9">MessageBox_t</a>* uart_messagebox_create </td>
           <td>(</td>
           <td class="paramtype">uint32_t&#160;</td>
           <td class="paramname"><em>baudrate</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="message_8h.html#a48127d7e6212c40e06f748b9e12681b5">MessageBox_t</a> *&#160;</td>
-          <td class="paramname"><em>box</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -298,6 +292,7 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">baudrate</td><td>UART baudrate. </td></tr>
+    <tr><td class="paramname">data</td><td>an array of Message_t. </td></tr>
     <tr><td class="paramname">num</td><td>max size of FIFO buffer. </td></tr>
   </table>
   </dd>

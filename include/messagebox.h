@@ -33,10 +33,9 @@ typedef struct MessageBox {
 
 /**
  * @brief Create new ring buffer.
- * @param box pointer to MessageBox instance
  * @param data pointer to array containing data
  * @param num max number of element in buffer.
- * @return new ring buffer instance.
+ * @return new MessageBox_t instance.
  */
 MessageBox_t messagebox_create(Message_t *data, uint8_t num);
 
