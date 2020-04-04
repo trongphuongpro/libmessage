@@ -16,7 +16,6 @@ elseif (SERIES STREQUAL TIVA)
 								src/messagebox.c
 								lib/crc32_tiva.c
 								lib/uart_tiva.c
-								${TIVAWARE_PATH}/utils/uartstdio.c
 	)
 
 else()

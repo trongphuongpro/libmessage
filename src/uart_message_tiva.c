@@ -15,7 +15,6 @@
 
 #include "driverlib/uart.h"
 #include "driverlib/sysctl.h"
-#include "utils/uartstdio.h"
 
 #include "messagebox.h"
 #include "uart.h"
