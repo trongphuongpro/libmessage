@@ -128,9 +128,7 @@ int messagebox_pop(MessageBox_t *box, Message_t *data) {
 	int ret = -1;
 
 	if (!messagebox_isEmpty(box)) {
-		data->address = box->data[box->readPoint].address;
-		data->payloadSize = box->data[box->readPoint].payloadSize;
-		memcpy(data->payload, box->data[box->readPoint].payload, data->payloadSize);
+		*data = box->data[box->readPoint];
 
 		/**
 		 * update checkpoints after getting data into box

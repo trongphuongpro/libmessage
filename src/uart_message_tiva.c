@@ -168,9 +168,8 @@ void createFrame(const void* _preamble,
                             MESSAGE_MAX_PAYLOAD_SIZE : len;
 
     // PAYLOAD
-    for (uint8_t i = 0; i < txFrame.payloadSize; i++) {
-        txFrame.payload[i] = data[i];
-    }
+    memcpy(txFrame.payload, data, txFrame.payloadSize);
+
 
     // CHECKSUM CRC32
     crc32_t checksum = crc32_concat(crc32_compute(&txFrame, 
