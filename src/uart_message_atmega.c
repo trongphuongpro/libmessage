@@ -72,7 +72,7 @@ MessageBox_t *uart_messagebox_create(uint32_t baudrate,
 									uint8_t num) 
 {
 	
-	uart_open(baudrate);
+	atmega_uart_init(baudrate);
 	sei();
 
 	messageBox = messagebox_create(data, num);

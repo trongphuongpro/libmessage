@@ -20,7 +20,7 @@ static FILE uart_stdout = FDEV_SETUP_STREAM(uart_putchar_io, NULL, _FDEV_SETUP_W
 //static FILE uart_stdin = FDEV_SETUP_STREAM(NULL, uart_getchar_io, _FDEV_SETUP_READ);
 
 
-void uart_open(uint32_t baudrate) {
+void atmega_uart_init(uint32_t baudrate) {
 	/* baudrate */
 	uint8_t ubbr = F_CPU / (16 * baudrate) - 1;
 	UBRR0H = ubbr >> 8;

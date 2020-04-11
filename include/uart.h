@@ -22,7 +22,11 @@ extern "C" {
  * @param baudrate UART baudrate.
  * @return nothing.
  */
-void uart_open(uint32_t baudrate);
+void tiva_uart_init(uint32_t base, uint32_t baudrate);
+
+
+
+void atmega_uart_init(uint32_t baudrate);
 
 
 /**

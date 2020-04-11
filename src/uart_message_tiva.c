@@ -81,7 +81,8 @@ MessageBox_t *uart_messagebox_create(uint32_t uartbase,
     UARTIntRegister(uartbase, ISR);
     UARTIntEnable(uartbase, UART_INT_RX);
 
-    uart_open(uartbase);
+    tiva_uart_init(uartbase, 9600);
+    UARTFIFODisable(uartbase);
 
     messageBox = messagebox_create(data, num);
 
@@ -172,13 +173,11 @@ void createFrame(const void* _preamble,
 
 
     // CHECKSUM CRC32
-    crc32_t checksum = crc32_concat(crc32_compute(&txFrame, 
+    txFrame.checksum = crc32_concat(crc32_compute(&txFrame, 
                                             sizeof(txFrame.preamble) 
                                             + sizeof(txFrame.address) 
                                             + sizeof(txFrame.payloadSize)),
                                 txFrame.payload, txFrame.payloadSize);
-
-    txFrame.checksum = checksum;
 }
 
 

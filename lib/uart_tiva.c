@@ -8,14 +8,19 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <string.h>
+
+#include "driverlib/sysctl.h"
 #include "driverlib/uart.h"
 #include "uart.h"
 
 
 static uint32_t UARTbase;
 
-void uart_open(uint32_t base) {
+void tiva_uart_init(uint32_t base, uint32_t baudrate) {
 	UARTbase = base;
+
+	UARTConfigSetExpClk(UARTbase, SysCtlClockGet(), baudrate,
+        UART_CONFIG_WLEN_8 | UART_CONFIG_STOP_ONE | UART_CONFIG_PAR_NONE);
 }
 
 
