@@ -82,6 +82,8 @@ MessageBox_t *uart_messagebox_create(uint32_t uartbase,
     UARTIntEnable(uartbase, UART_INT_RX);
 
     tiva_uart_init(uartbase, 9600);
+
+    // Must not use FIFO
     UARTFIFODisable(uartbase);
 
     messageBox = messagebox_create(data, num);
