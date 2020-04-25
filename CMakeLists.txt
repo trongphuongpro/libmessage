@@ -4,7 +4,7 @@ set(TARGET message)
 
 #-----------------------------------------------------------------------------#
 
-if (SERIES STREQUAL ATMEGA)
+if (SERIES STREQUAL AVR)
 	add_library(${TARGET} STATIC src/uart_message_atmega.c
 								src/messagebox.c
 								lib/crc32_atmega.c
@@ -27,7 +27,7 @@ target_include_directories(${TARGET} PRIVATE include)
 
 #-----------------------------------------------------------------------------#
 
-if (SERIES STREQUAL ATMEGA)
+if (SERIES STREQUAL AVR)
 	target_compile_options(${TARGET} PUBLIC -mmcu=${MCU}
 											-std=gnu11
 											-O2
