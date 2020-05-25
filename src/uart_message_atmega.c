@@ -67,7 +67,7 @@ static callbacktype callback[] = {	parsePreamble,
 									parseChecksum };
 
 
-MessageBox_t *uart_messagebox_create(uint32_t baudrate, 
+MessageBoxHandle_t uart_messagebox_create(uint32_t baudrate, 
 									Message_t *data,
 									uint8_t num) 
 {
